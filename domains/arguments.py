@@ -17,6 +17,8 @@ def domains_argparse(parser):
     create.add_argument('--dns-master', help='DNS master address')
 
     add.add_argument('fqdn', help='Create a new DNS entry')
+    add.add_argument('--description', help='description of item')
+    add.add_argument('--type', help='DNS type')
 
     update.add_argument('domain', help='domain name')
     update.add_argument('--description', help='description of item')

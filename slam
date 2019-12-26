@@ -11,15 +11,14 @@ view = None
 ctrl = None
 
 if args.plugin() == 'domains':
-    result = session.get('domains')
-    view = SlamDomainView(result)
+    view = SlamDomainView(session)
     ctrl = SlamDomainController(session)
 
 if args.action() == 'list':
-    view.display_collection()
+    view.list()
 
 if args.action() == 'show':
-    view.display_item(args.show())
+    view.show(args.options())
 
 if args.action() == 'create':
     ctrl.create(args.options())

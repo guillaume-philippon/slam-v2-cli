@@ -20,7 +20,12 @@ class SlamDomainController:
         fqdn = options.fqdn.split('.', 1)
         name = fqdn[0]
         domain = fqdn[1]
-        result = self.api.add('domains', domain, name, {})
+        entry = dict()
+        if options.description is not None:
+            entry['description'] = options.description
+        if options.type is not None:
+            entry['type'] = options.type
+        result = self.api.add('domains', domain, name, entry)
         if result['status'] == 'done':
             print('Name resolution {} as been added to domain {}'.format(name, domain))
         else:

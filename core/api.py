@@ -48,7 +48,7 @@ class SlamAPIController:
         except KeyError:
             pass
 
-    def get(self, plugin, item=None):
+    def list(self, plugin, item=None):
         uri = "{}/{}".format(self.location, plugin)
         if item is not None:
             uri = "{}/{}".format(uri, item)

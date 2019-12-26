@@ -1,17 +1,22 @@
 class SlamDomainView:
-    def __init__(self, domains):
-        self.domains = domains
+    def __init__(self, api):
+        self.api = api
         pass
 
-    def display_collection(self):
+    def list(self):
         print('-- Domain list --')
-        for domain in self.domains:
+        domains = self.api.list('domains')
+
+        for domain in domains:
             print('  - {}: {}'.format(domain['name'], domain['description']))
 
-    def display_item(self, domain):
-        for item in self.domains:
-            if item['name'] == domain:
-                print('name: {}'.format(item['name']))
-                print('description: {}'.format(item['description']))
-                print('DNS master: {}'.format(item['master']))
-                print('contact: {}'.format(item['contact']))
+    def show(self, options):
+        domain = self.api.list('domains', options.domain)
+        print('domain: {}'.format(domain['domain']))
+        print('description: {}'.format(domain['description']))
+        print('DNS master: {}'.format(domain['master']))
+        print('contact: {}'.format(domain['contact']))
+        print('entries:')
+        for entry in domain['entries']:
+            print('  - name: {}'.format(entry['name']))
+            print('    description: {}'.format(entry['description']))
