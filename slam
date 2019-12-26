@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+from core import api, arguments
+from domains.view import SlamDomainView
+from domains.controller import SlamDomainController
+
+args = arguments.SlamArgumentsParser()
+session = api.SlamAPIController()
+session.login()
+
+if args.plugin() == 'domains':
+    result = session.get('domains')
+    view = SlamDomainView(result)
+    ctrl = SlamDomainController(session)
+
+if args.action() == 'list':
+    view.display_collection()
+
+if args.action() == 'show':
+    view.display_item(args.show())
+
+if args.action() == 'add':
+    print(args.options())
+    ctrl.add(args.options())
