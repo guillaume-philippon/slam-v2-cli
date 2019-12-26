@@ -1,8 +1,26 @@
+"""
+This module provide class to control domain data.
+"""
+
+
 class SlamDomainController:
+    """
+    SlamDomainController provide CLI wrapper to manage a SLAM domain
+    """
     def __init__(self, api):
+        """
+        :param self: object itself
+        :param api: generic api for SLAM REST api
+        """
         self.api = api
 
     def create(self, options):
+        """
+        Create a new domain on SLAM. By default, we only need domain name and DNS master entry
+
+        :param self: object itself
+        :param options: arguments pass throught CLI
+        """
         domain = {
             'name': options.domain,
             'description': options.description,
@@ -17,6 +35,12 @@ class SlamDomainController:
                                                                     result['status']))
 
     def add(self, options):
+        """
+        Add a new entry into a domain. A entry is a fqdn (ie www.example.com)
+
+        :param self: object itself
+        :param options: arguments pass throught CLI
+        """
         fqdn = options.fqdn.split('.', 1)
         name = fqdn[0]
         domain = fqdn[1]
@@ -36,7 +60,6 @@ class SlamDomainController:
             ))
 
     def update(self, options):
-        print(options)
         modification = {}
         if options.contact is not None:
             modification['contact'] = options.contact
