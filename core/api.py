@@ -61,7 +61,7 @@ class SlamAPIController:
 
     def create(self, plugin, item, options):
         uri = "{}/{}/{}".format(self.location, plugin, item)
-        result = self.session.post(uri, headers=self.headers)
+        result = self.session.post(uri, data=options, headers=self.headers)
         try:
             self.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
@@ -76,3 +76,12 @@ class SlamAPIController:
         except KeyError:
             pass
         return json.loads(result.text)
+
+    def update(self, plugin, item, options):
+        uri = "{}/{}/{}".format(self.location, plugin, item)
+        print(options)
+        result = self.session.put(uri, data=options, headers=self.headers)
+        try:
+            self.headers['X-CSRFToken'] = result.cookies['csrftoken']
+        except KeyError:
+            pass

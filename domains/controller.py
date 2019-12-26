@@ -20,5 +20,25 @@ class SlamDomainController:
         fqdn = options.fqdn.split('.', 1)
         name = fqdn[0]
         domain = fqdn[1]
-        print("{} on domain {}".format(name, domain))
         result = self.api.add('domains', domain, name, {})
+        if result['status'] == 'done':
+            print('Name resolution {} as been added to domain {}'.format(name, domain))
+        else:
+            print('Name resolution {}.{} addition has failed with status {}'.format(
+                result['name'],
+                result['domain'],
+                result['status']
+            ))
+
+    def update(self, options):
+        print(options)
+        modification = {}
+        if options.contact is not None:
+            modification['contact'] = options.contact
+        if options.description is not None:
+            modification['description'] = options.description
+        if options.dns_master is not None:
+            modification['master'] = options.dns_master
+
+        result = self.api.update('domains', options.domain, modification)
+        print('Domain {} has been modified'.format(options.domain))

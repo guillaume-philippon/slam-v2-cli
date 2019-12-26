@@ -26,3 +26,6 @@ if args.action() == 'create':
 
 if args.action() == 'add':
     ctrl.add(args.options())
+
+if args.action() == 'update':
+    ctrl.update(args.options())
