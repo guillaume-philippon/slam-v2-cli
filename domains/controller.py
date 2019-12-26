@@ -60,6 +60,12 @@ class SlamDomainController:
             ))
 
     def update(self, options):
+        """
+        Modify a domain. This allow to change contact email, description and dns-master
+
+        :param self: object itself
+        :param options: arguments pass throught CLI
+        """
         modification = {}
         if options.contact is not None:
             modification['contact'] = options.contact
@@ -67,6 +73,9 @@ class SlamDomainController:
             modification['description'] = options.description
         if options.dns_master is not None:
             modification['master'] = options.dns_master
-
         result = self.api.update('domains', options.domain, modification)
-        print('Domain {} has been modified'.format(options.domain))
+        if result['status'] == 'done':
+            print('Domain {} has been modified'.format(options.domain))
+        else:
+            print('Domain {} modification failed with status {}'.format(options.domain,
+                                                                        result['status']))
