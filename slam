@@ -7,6 +7,8 @@ from domains.controller import SlamDomainController
 args = arguments.SlamArgumentsParser()
 session = api.SlamAPIController()
 session.login()
+view = None
+ctrl = None
 
 if args.plugin() == 'domains':
     result = session.get('domains')
@@ -19,6 +21,8 @@ if args.action() == 'list':
 if args.action() == 'show':
     view.display_item(args.show())
 
+if args.action() == 'create':
+    ctrl.create(args.options())
+
 if args.action() == 'add':
-    print(args.options())
     ctrl.add(args.options())

@@ -6,7 +6,7 @@ class SlamDomainView:
     def display_collection(self):
         print('-- Domain list --')
         for domain in self.domains:
-            print('  {}: {}'.format(domain['name'], domain['description']))
+            print('  - {}: {}'.format(domain['name'], domain['description']))
 
     def display_item(self, domain):
         for item in self.domains:
