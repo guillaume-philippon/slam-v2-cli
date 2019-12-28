@@ -10,12 +10,11 @@ def domains_argparse(parser):
     :param parser: main argument parser
     """
     subparsers = parser.add_subparsers(help='Action', dest='action')
-    collection = subparsers.add_parser('list', help='list all domains')
+    subparsers.add_parser('list', help='list all domains')
     show = subparsers.add_parser('show', help='show detail of a domain')
     create = subparsers.add_parser('create', help='create new domain')
     add = subparsers.add_parser('add', help='Add new fqdn in a domain')
     update = subparsers.add_parser('update', help='Update domain information')
-    # remove = subparsers.add_parser('remove', help='remove a domain')
 
     show.add_argument('domain', help='domain you want to show')
 

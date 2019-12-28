@@ -14,7 +14,6 @@ class SlamDomainView:
         :param api: generic api for SLAM REST Api
         """
         self.api = api
-        pass
 
     def list(self):
         """

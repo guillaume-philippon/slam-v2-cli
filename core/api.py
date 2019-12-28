@@ -5,8 +5,8 @@ we use the following nomenclature
  - item: a specific element into a collection (per example a explicit hardware, a domain, ...)
  - plugin: the python module we want to use
 """
-import requests
 import json
+import requests
 
 
 class SlamAPIController:

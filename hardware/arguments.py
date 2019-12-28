@@ -10,7 +10,7 @@ def hardware_argparse(parser):
     :param parser: main argument parser
     """
     subparsers = parser.add_subparsers(help='Action', dest='action')
-    collection = subparsers.add_parser('list', help='list all hardware')
+    subparsers.add_parser('list', help='list all hardware')
     show = subparsers.add_parser('show', help='show detail of a hardware')
     create = subparsers.add_parser('create', help='create new hardware')
     add = subparsers.add_parser('add', help='Add a new host')

@@ -10,12 +10,11 @@ def networks_argparse(parser):
     :param parser: main argument parser
     """
     subparsers = parser.add_subparsers(help='Action', dest='action')
-    collection = subparsers.add_parser('list', help='list all networks')
+    subparsers.add_parser('list', help='list all networks')
     show = subparsers.add_parser('show', help='show detail of a network')
     create = subparsers.add_parser('create', help='create new network')
     add = subparsers.add_parser('add', help='Add a new host')
     update = subparsers.add_parser('update', help='Update network information')
-    # remove = subparsers.add_parser('remove', help='remove a domain')
 
     show.add_argument('network', help='network you want to show')
 
