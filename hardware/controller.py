@@ -43,11 +43,7 @@ class SlamHardwareController:
         :param self: object itself
         :param options: arguments pass throught CLI
         """
-        modification = {}
-        if options.owner is not None:
-            modification['owner'] = options.owner
-        if options.description is not None:
-            modification['description'] = options.description
+        modification = options.__dict__
         result = self.api.update('hardware', options.hardware, modification)
         if result['status'] == 'done':
             print('Hardware {} has been modified'.format(options.hardware))

@@ -45,19 +45,7 @@ class SlamNetworkController:
         :param self: object itself
         :param options: arguments pass throught CLI
         """
-        modification = {}
-        if options.contact is not None:
-            modification['contact'] = options.contact
-        if options.description is not None:
-            modification['description'] = options.description
-        if options.dns_master is not None:
-            modification['dns-master'] = options.dns_master
-        if options.gateway is not None:
-            modification['gateway'] = options.gateway
-        if options.dhcp is not None:
-            modification['dhcp'] = options.dhcp
-        if options.vlan is not None:
-            modification['vlan'] = options.vlan
+        modification = options.__dict__
         result = self.api.update('networks', options.network, modification)
         if result['status'] == 'done':
             print('Network {} has been modified'.format(options.network))
@@ -67,7 +55,7 @@ class SlamNetworkController:
 
     def delete(self, options):
         """
-        Delete a network
+        Delete a network.
 
         :param options: arguments pass throught CLI
         :return:

@@ -37,9 +37,6 @@ def domains_argparse(parser):
     create.add_argument('--contact', help='a contact email for the domain')
     create.add_argument('--dns-master', help='DNS master address')
 
-    # To delete a domain, we just need to know the domain we want to delete
-    delete.add_argument('domain', help='domain name')
-
     # To update a domain, we need to know the domain name and the following value are
     # mutable
     # - description: a description of the domain
@@ -49,6 +46,9 @@ def domains_argparse(parser):
     update.add_argument('--description', help='description of the domain')
     update.add_argument('--contact', help='contact email for the domain')
     update.add_argument('--dns-master', help='DNS master address')
+
+    # To delete a domain, we just need to know the domain we want to delete
+    delete.add_argument('domain', help='domain name')
 
     # To have detail of a specific domain, we just need to know the name of it
     show.add_argument('domain', help='domain name')
