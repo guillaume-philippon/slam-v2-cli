@@ -64,3 +64,16 @@ class SlamNetworkController:
         else:
             print('Network {} modification failed with status {}'.format(options.network,
                                                                          result['status']))
+
+    def delete(self, options):
+        """
+        Delete a network
+
+        :param options: arguments pass throught CLI
+        :return:
+        """
+        result = self.api.delete('networks', options.network)
+        if result['status'] == 'done':
+            print('network {} has been deleted'.format(options.network))
+        else:
+            print('Oops')
