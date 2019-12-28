@@ -1,5 +1,6 @@
 import argparse
 from domains.arguments import domains_argparse
+from networks.arguments import networks_argparse
 
 
 class SlamArgumentsParser:
@@ -11,6 +12,7 @@ class SlamArgumentsParser:
         hardware = subparsers.add_parser('hardware')
 
         domains_argparse(domains)
+        networks_argparse(networks)
 
         args = parser.parse_args()
         self.args = args

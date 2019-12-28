@@ -79,9 +79,9 @@ class SlamAPIController:
 
     def update(self, plugin, item, options):
         uri = "{}/{}/{}".format(self.location, plugin, item)
-        print(options)
         result = self.session.put(uri, data=options, headers=self.headers)
         try:
             self.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
+        return json.loads(result.text)

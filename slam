@@ -3,6 +3,8 @@
 from core import api, arguments
 from domains.view import SlamDomainView
 from domains.controller import SlamDomainController
+from networks.view import SlamNetworkView
+from networks.controller import SlamNetworkController
 
 args = arguments.SlamArgumentsParser()
 session = api.SlamAPIController()
@@ -13,6 +15,9 @@ ctrl = None
 if args.plugin() == 'domains':
     view = SlamDomainView(session)
     ctrl = SlamDomainController(session)
+elif args.plugin() == 'networks':
+    view = SlamNetworkView(session)
+    ctrl = SlamNetworkController(session)
 
 if args.action() == 'list':
     view.list()
