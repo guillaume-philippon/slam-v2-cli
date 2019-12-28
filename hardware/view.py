@@ -37,12 +37,13 @@ class SlamHardwareView:
         :param self: object itself
         :param options: arguments passed throught CLI
         """
-        network = self.api.list('hardware', options.hardware)
-        print('network name: {}'.format(network['name']))
-        print('description: {}'.format(network['description']))
-        print('contact: {}'.format(network['contact']))
-        print('address/prefix: {}/{}'.format(network['address'], network['prefix']))
-        print('gateway: {}'.format(network['gateway']))
-        print('DNS master: {}'.format(network['dns-master']))
-        print('DHCP: {}'.format(network['dhcp']))
-        print('VLAN: {}'.format(network['vlan']))
+        hardware = self.api.list('hardware', options.hardware)
+        print('hardware name: {}'.format(hardware['name']))
+        print('description: {}'.format(hardware['description']))
+        print('owner: {}'.format(hardware['owner']))
+        print('interfaces:')
+        for interface in hardware['interfaces']:
+            if interface['type'] is not None:
+                print('    - {}: {}'.format(interface['type'], interface['mac-address']))
+            else:
+                print('    - mac-address: {}'.format(interface['mac-address']))

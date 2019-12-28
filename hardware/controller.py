@@ -25,7 +25,7 @@ class SlamHardwareController:
             'name': options.hardware,
             'description': options.description,
             'owner': options.owner,
-            'interface-mac-address': options.interface_address,
+            'interface-mac-address': options.interface_mac_address,
             'interface-speed': options.interface_speed,
             'interface-type': options.interface_type
         }

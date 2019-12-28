@@ -22,7 +22,7 @@ def hardware_argparse(parser):
     create.add_argument('hardware', help='hardware name')
     create.add_argument('--description', help='description')
     create.add_argument('--owner', help='owner of the hardware')
-    create.add_argument('--interface-address', help='Interface address')
+    create.add_argument('--interface-mac-address', help='Interface address')
     create.add_argument('--interface-speed', help='Interface speed')
     create.add_argument('--interface-type', help='Interface type')
 
