@@ -54,7 +54,7 @@ class SlamDomainController:
             print('Name resolution {} as been added to domain {}'.format(name, domain))
         else:
             print('Name resolution {}.{} addition has failed with status {}'.format(
-                result['name'],
+                result['entry'],
                 result['domain'],
                 result['status']
             ))
