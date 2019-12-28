@@ -3,7 +3,7 @@ This module provide a specific class for domain view management
 """
 
 
-class SlamNetworkView:
+class SlamHardwareView:
     """
     SlamNetworkView provide some ASCII view for domain management
     """
@@ -22,13 +22,12 @@ class SlamNetworkView:
 
         :param self: object itself
         """
-        print('networks:')
-        networks = self.api.list('networks')
+        print('inventory:')
+        networks = self.api.list('hardware')
         for network in networks:
-            print('    - {} ({}/{}): {}'.format(network['name'],
-                                                network['address'],
-                                                network['prefix'],
-                                                network['description']))
+            print('    - {} ({}): {}'.format(network['name'],
+                                             network['owner'],
+                                             network['description']))
 
     def show(self, options):
         """
@@ -38,7 +37,7 @@ class SlamNetworkView:
         :param self: object itself
         :param options: arguments passed throught CLI
         """
-        network = self.api.list('networks', options.network)
+        network = self.api.list('hardware', options.hardware)
         print('network name: {}'.format(network['name']))
         print('description: {}'.format(network['description']))
         print('contact: {}'.format(network['contact']))

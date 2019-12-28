@@ -5,6 +5,8 @@ from domains.view import SlamDomainView
 from domains.controller import SlamDomainController
 from networks.view import SlamNetworkView
 from networks.controller import SlamNetworkController
+from hardware.view import SlamHardwareView
+from hardware.controller import SlamHardwareController
 
 args = arguments.SlamArgumentsParser()
 session = api.SlamAPIController()
@@ -18,18 +20,17 @@ if args.plugin() == 'domains':
 elif args.plugin() == 'networks':
     view = SlamNetworkView(session)
     ctrl = SlamNetworkController(session)
+elif args.plugin() == 'hardware':
+    view = SlamHardwareView(session)
+    ctrl = SlamHardwareController(session)
 
 if args.action() == 'list':
     view.list()
-
-if args.action() == 'show':
+elif args.action() == 'show':
     view.show(args.options())
-
-if args.action() == 'create':
+elif args.action() == 'create':
     ctrl.create(args.options())
-
-if args.action() == 'add':
+elif args.action() == 'add':
     ctrl.add(args.options())
-
-if args.action() == 'update':
+elif args.action() == 'update':
     ctrl.update(args.options())

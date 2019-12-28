@@ -23,11 +23,11 @@ class SlamDomainView:
 
         :param self: object itself
         """
-        print('-- Domain list --')
+        print('domains:')
         domains = self.api.list('domains')
 
         for domain in domains:
-            print('  - {}: {}'.format(domain['name'], domain['description']))
+            print('    - {}: {}'.format(domain['name'], domain['description']))
 
     def show(self, options):
         """
