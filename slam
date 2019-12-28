@@ -34,3 +34,7 @@ elif args.action() == 'add':
     ctrl.add(args.options())
 elif args.action() == 'update':
     ctrl.update(args.options())
+elif args.action() == 'delete':
+    ctrl.delete(args.options())
+elif args.action() == 'remove':
+    ctrl.remove(args.options())

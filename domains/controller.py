@@ -49,7 +49,7 @@ class SlamDomainController:
             entry['description'] = options.description
         if options.type is not None:
             entry['type'] = options.type
-        result = self.api.add('domains', domain, name, entry)
+        result = self.api.create('domains', domain, entry, field=name)
         if result['status'] == 'done':
             print('Name resolution {} as been added to domain {}'.format(name, domain))
         else:

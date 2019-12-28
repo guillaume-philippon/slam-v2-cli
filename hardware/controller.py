@@ -38,27 +38,66 @@ class SlamHardwareController:
 
     def update(self, options):
         """
-        Modify a network.
+        Modify a hardware.
 
         :param self: object itself
         :param options: arguments pass throught CLI
         """
         modification = {}
-        if options.contact is not None:
-            modification['contact'] = options.contact
+        if options.owner is not None:
+            modification['owner'] = options.owner
         if options.description is not None:
             modification['description'] = options.description
-        if options.dns_master is not None:
-            modification['dns-master'] = options.dns_master
-        if options.gateway is not None:
-            modification['gateway'] = options.gateway
-        if options.dhcp is not None:
-            modification['dhcp'] = options.dhcp
-        if options.vlan is not None:
-            modification['vlan'] = options.vlan
-        result = self.api.update('networks', options.network, modification)
+        result = self.api.update('hardware', options.hardware, modification)
         if result['status'] == 'done':
-            print('Network {} has been modified'.format(options.network))
+            print('Hardware {} has been modified'.format(options.hardware))
         else:
-            print('Network {} modification failed with status {}'.format(options.network,
-                                                                         result['status']))
+            print('Hardware {} modification failed with status {}'.format(options.hardware,
+                                                                          result['status']))
+
+    def delete(self, options):
+        """
+        Delete a hardware.
+
+        :return:
+        """
+        result = self.api.delete('hardware', options.hardware)
+        if result['status'] == 'done':
+            print('Hardware {} as been deleted')
+        else:
+            print('Oops..')
+
+    def add(self, options):
+        """
+        Add a interface in a hardware.
+
+        :param options: information about the new interface
+        :return:
+        """
+        interface = dict()
+        interface['interface-mac-address'] = options.interface_mac_address
+        if options.interface_type is not None:
+            interface['interface-type'] = options.interface_type
+        if options.interface_speed is not None:
+            interface['interface-speed'] = options.interface_speed
+        result = self.api.create('hardware', options.hardware, interface,
+                                 field='interfaces/{}'.format(interface['interface-mac-address']))
+        if result['status'] == 'done':
+            print('Interface {} as been add to {}'.format(options.interface_mac_address,
+                                                          options.hardware))
+        else:
+            print('Interface addition failed with status {}'.format(result['status']))
+
+    def remove(self, options):
+        """
+        Remove interface from a hardware
+        :param options: arguments pass throught CLI
+        :return:
+        """
+        interface = options.interface_mac_address
+        result = self.api.delete('hardware', options.hardware,
+                                 field='interfaces/{}'.format(interface))
+        if result['status'] == 'done':
+            print('Interface {} has been removed'.format(interface))
+        else:
+            print('Oops')
