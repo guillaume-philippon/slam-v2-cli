@@ -21,8 +21,8 @@ class SlamHostView:
 
         :param self: object itself
         """
-        print('hosts:')
         hosts = self.api.list('hosts')
+        print('hosts:')
         for host in hosts:
             print('    - {} ({})'.format(host['name'], host['ip-address']))
 

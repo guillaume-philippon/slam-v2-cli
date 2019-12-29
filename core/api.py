@@ -7,6 +7,7 @@ we use the following nomenclature
 """
 import json
 import requests
+import os
 
 
 class SlamAPIController:
@@ -17,19 +18,27 @@ class SlamAPIController:
         """
         Define some default value
         """
-        self.location = 'http://127.0.0.1:8000'
+        self.location = os.getenv('SLAM_LOCATION')
+        self.username = os.getenv('SLAM_USERNAME')
+        self.password = os.getenv('SLAM_PASSWORD')
+        if self.location is None:
+            self.location = input("slam uri (https://slam.example.com): ")
+            os.putenv('SLAM_LOCATION', self.location)
+        if self.username is None:
+            self.username = input("slam username: ")
+            os.putenv('SLAM_USERNAME', self.username)
+        if self.password is None:
+            self.password = input("slam password: ")
+            os.putenv('SLAM_PASSWORD', self.password)
         self.csrf_token_location = '/csrf'
         self.login_location = '/login'
         self.logout_location = '/logout'
-        self.username = 'sinese'
-        self.password = 'azerty'
-        self.plugins = [
-            'domains'
-        ]
+        self.ssl_verify = False
         self.headers = {
             'accept': 'application/json'
         }
         self.session = requests.Session()
+        self.session.verify = self.ssl_verify
 
     def login(self):
         """
@@ -40,6 +49,11 @@ class SlamAPIController:
                                     headers=self.headers)
         # We put CSRF-Token in header
         self.headers['X-CSRFToken'] = get_csrf.cookies['csrftoken']
+        # In case we use https, we need to add a Referer to have CSRF Token work.
+        # - https://stackoverflow.com/questions/20837786/changing-the-referer-url-in-python-requests
+        # - https://www.asafety.fr/vuln-exploit-poc/csrf-referer-token-protection-bypass-with-xss/
+        # for more information
+        self.headers['Referer'] = get_csrf.request.url
         data = {
             'username': self.username,
             'password': self.password
