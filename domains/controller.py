@@ -1,6 +1,12 @@
 """
 This module provide class to control domain data.
 """
+DOMAIN_FIELD = [
+    'name',
+    'description',
+    'contact',
+    'dns_master'
+]
 
 
 class SlamDomainController:
@@ -25,7 +31,7 @@ class SlamDomainController:
             'name': options.domain,
             'description': options.description,
             'contact': options.contact,
-            'master': options.dns_master
+            'dns_master': options.dns_master
         }
         result = self.api.create('domains', options.domain, domain)
         if result['status'] == 'done':
@@ -47,7 +53,7 @@ class SlamDomainController:
         if options.description is not None:
             modification['description'] = options.description
         if options.dns_master is not None:
-            modification['master'] = options.dns_master
+            modification['dns_master'] = options.dns_master
         result = self.api.update('domains', options.domain, modification)
         if result['status'] == 'done':
             print('Domain {} has been modified'.format(options.domain))
@@ -66,7 +72,7 @@ class SlamDomainController:
         if result['status'] == 'done':
             print('Domain {} has been deleted'.format(options.domain))
         else:
-            print('domain {} deletation has failed with status {}'.format(options.domain,
+            print('domain {} removal has failed with status {}'.format(options.domain,
                                                                        result['status']))
 
     def add(self, options):

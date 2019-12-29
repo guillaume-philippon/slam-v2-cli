@@ -5,9 +5,9 @@ we use the following nomenclature
  - item: a specific element into a collection (per example a explicit hardware, a domain, ...)
  - plugin: the python module we want to use
 """
+import os
 import json
 import requests
-import os
 
 
 class SlamAPIController:
@@ -33,36 +33,33 @@ class SlamAPIController:
         self.csrf_token_location = '/csrf'
         self.login_location = '/login'
         self.logout_location = '/logout'
-        self.ssl_verify = False
-        self.headers = {
+        self.session = requests.Session()
+        self.session.verify = False
+        self.session.headers = {
             'accept': 'application/json'
         }
-        self.session = requests.Session()
-        self.session.verify = self.ssl_verify
 
     def login(self):
         """
         This method is used to signin slam-v2 REST api.
         """
         # We must get csrf before doing a post action.
-        get_csrf = self.session.get("{}{}".format(self.location, self.csrf_token_location),
-                                    headers=self.headers)
+        get_csrf = self.session.get("{}{}".format(self.location, self.csrf_token_location))
         # We put CSRF-Token in header
-        self.headers['X-CSRFToken'] = get_csrf.cookies['csrftoken']
+        self.session.headers['X-CSRFToken'] = get_csrf.cookies['csrftoken']
         # In case we use https, we need to add a Referer to have CSRF Token work.
         # - https://stackoverflow.com/questions/20837786/changing-the-referer-url-in-python-requests
         # - https://www.asafety.fr/vuln-exploit-poc/csrf-referer-token-protection-bypass-with-xss/
         # for more information
-        self.headers['Referer'] = get_csrf.request.url
+        self.session.headers['Referer'] = get_csrf.request.url
         data = {
             'username': self.username,
             'password': self.password
         }
         result = self.session.post("{}{}".format(self.location, self.login_location),
-                                   data=data,
-                                   headers=self.headers)
+                                   data=data)
         try:
-            self.headers['X-CSRFToken'] = result.cookies['csrftoken']
+            self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
 
@@ -79,9 +76,9 @@ class SlamAPIController:
         if item is not None:
             uri = "{}/{}".format(uri, item)
         print(uri)
-        result = self.session.get(uri, headers=self.headers)
+        result = self.session.get(uri)
         try:
-            self.headers['X-CSRFToken'] = result.cookies['csrftoken']
+            self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
         return json.loads(result.text)
@@ -101,9 +98,9 @@ class SlamAPIController:
         if field is not None:
             uri = "{}/{}".format(uri, field)
         print(uri)
-        result = self.session.post(uri, data=options, headers=self.headers)
+        result = self.session.post(uri, data=options)
         try:
-            self.headers['X-CSRFToken'] = result.cookies['csrftoken']
+            self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
         return json.loads(result.text)
@@ -119,9 +116,9 @@ class SlamAPIController:
         """
         uri = "{}/{}/{}".format(self.location, plugin, item)
         print(uri)
-        result = self.session.put(uri, data=options, headers=self.headers)
+        result = self.session.put(uri, data=options)
         try:
-            self.headers['X-CSRFToken'] = result.cookies['csrftoken']
+            self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
         return json.loads(result.text)
@@ -140,9 +137,9 @@ class SlamAPIController:
         if field is not None:
             uri = "{}/{}".format(uri, field)
         print(uri)
-        result = self.session.delete(uri, headers=self.headers)
+        result = self.session.delete(uri)
         try:
-            self.headers['X-CSRFToken'] = result.cookies['csrftoken']
+            self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
         return json.loads(result.text)

@@ -37,7 +37,8 @@ def hosts_argparse(parser):
     #  - interface-speed: the speed of the interface
     #  - interface-type: the type of interface
     create.add_argument('fqdn', help='Full Qualified Domain Name of the machine')
-    create.add_argument('--interface', help='MAC address of the hardware interface')
+    create.add_argument('--interface', dest='hardware',
+                        help='MAC address of the hardware interface')
     networks = create.add_mutually_exclusive_group()
     networks.add_argument('--network', help='network where the interface will be bind')
     networks.add_argument('--ip-address', help='force a specific IP address')

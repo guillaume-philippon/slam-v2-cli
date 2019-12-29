@@ -28,7 +28,7 @@ class SlamHostController:
             ns = fqdn[0]
             domain = fqdn[1]
         host = {
-            'interface': options.interface,
+            'interface': options.hardware,
             'network': options.network,
             'ns': ns,
             'domain': domain,

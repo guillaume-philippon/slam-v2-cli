@@ -53,6 +53,7 @@ class SlamArgumentsParser:
         """
         if self.args.plugin == 'domains':
             return self.args.domain
+        return None
 
     def options(self):
         """
