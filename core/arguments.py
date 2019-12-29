@@ -19,6 +19,7 @@ class SlamArgumentsParser:
         """
         parser = argparse.ArgumentParser()
         subparsers = parser.add_subparsers(help='Plugins', dest='plugin')
+
         domains = subparsers.add_parser('domains')
         networks = subparsers.add_parser('networks')
         hardware = subparsers.add_parser('hardware')

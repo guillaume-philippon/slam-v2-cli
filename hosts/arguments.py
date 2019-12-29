@@ -92,7 +92,7 @@ def hosts_argparse(parser):
     # add.add_argument('--interface-type', help='Interface type')
 
     # To have detail on a specific hardware, we just need the hardware name
-    # show.add_argument('hardware', help='hardware you want to show')
+    show.add_argument('host', help='host you want to show')
 
     # To remove a interface, we need to know the hardware and interface mac address
     # remove.add_argument('hardware', help='hardware name')

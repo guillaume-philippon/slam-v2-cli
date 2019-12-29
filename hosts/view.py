@@ -25,3 +25,18 @@ class SlamHostView:
         print('hosts:')
         for host in hosts:
             print('    - {} ({})'.format(host['name'], host['ip-address']))
+
+    def show(self, options):
+        """
+        Show is a common name for showing information about a particular item in collection.
+
+        :param options: arguments passed througth CLI
+        :return:
+        """
+        host = self.api.list('hosts', options.host)
+        print('host name: {}'.format(host['name']))
+        print('interface: {}'.format(host['interface']))
+        print('network:')
+        print('    - name: {}'.format(host['network']['name']))
+        if host['network']['ip_address'] is not None:
+            print('    - ip: {}'.format(host['network']['ip_address']))
