@@ -10,6 +10,8 @@ from networks.view import SlamNetworkView
 from networks.controller import SlamNetworkController
 from hardware.view import SlamHardwareView
 from hardware.controller import SlamHardwareController
+from hosts.controller import SlamHostController
+from hosts.view import SlamHostView
 
 args = arguments.SlamArgumentsParser()
 session = api.SlamAPIController()
@@ -26,6 +28,9 @@ elif args.plugin() == 'networks':
 elif args.plugin() == 'hardware':
     view = SlamHardwareView(session)
     ctrl = SlamHardwareController(session)
+elif args.plugin() == 'hosts':
+    view = SlamHostView(session)
+    ctrl = SlamHostController(session)
 
 if args.action() == 'list':
     view.list()
