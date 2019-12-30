@@ -59,7 +59,8 @@ def domains_argparse(parser):
     # - type: the type of entry. The type is a bind type (A, AAAA, CNAME, ...)
     add.add_argument('fqdn', help='Full Qualified Domain Name')
     add.add_argument('--description', help='description of the entry')
-    add.add_argument('--type', help='bind type')
+    add.add_argument('--type', help='NS type')
 
     # To remove a specific entry, we need to know which fqdn remove
     remove.add_argument('fqdn', help='Full Qualified Domain Name')
+    remove.add_argument('--type', help='NS type')

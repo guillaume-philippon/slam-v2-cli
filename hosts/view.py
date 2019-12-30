@@ -34,9 +34,17 @@ class SlamHostView:
         :return:
         """
         host = self.api.list('hosts', options.host)
-        print('host name: {}'.format(host['name']))
-        print('interface: {}'.format(host['interface']))
+        print(host)
+        print('host: {}'.format(host['host']))
+        try:
+            print('interface: {}'.format(host['interface']))
+        except KeyError:
+            pass
+        print('main dns entry: {}'.format(host['dns-entry']))
         print('network:')
-        print('    - name: {}'.format(host['network']['name']))
-        if host['network']['ip_address'] is not None:
-            print('    - ip: {}'.format(host['network']['ip_address']))
+        try:
+            print('    - name: {}'.format(host['network']['name']))
+            if host['network']['ip-address'] is not None:
+                print('      ip: {}'.format(host['network']['ip-address']))
+        except KeyError:
+            pass

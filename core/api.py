@@ -123,7 +123,7 @@ class SlamAPIController:
             pass
         return json.loads(result.text)
 
-    def delete(self, plugin, item, field=None):
+    def delete(self, plugin, item, field=None, options=None):
         """
         This method provide a standard way to delete a item on a collection. Field can be
         used as a sub-level if item's collection is a collection itself
@@ -131,13 +131,14 @@ class SlamAPIController:
         :param plugin: the plugin we want to use
         :param item: the element we want to remove
         :param field: the field we want to remove
+        :param options: some additional information about the delete action
         :return:
         """
         uri = "{}/{}/{}".format(self.location, plugin, item)
         if field is not None:
             uri = "{}/{}".format(uri, field)
         print(uri)
-        result = self.session.delete(uri)
+        result = self.session.delete(uri, data=options)
         try:
             self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:

@@ -67,20 +67,25 @@ def hosts_argparse(parser):
     #  - warrantly: the warantly duration
     #  - interface-speed: the speed of the interface
     #  - interface-type: the type of interface
-    update.add_argument('hardware', help='hardware name')
-    update.add_argument('--description', help='a description of the hardware')
-    update.add_argument('--owner', help='owner of the hardware')
-    update.add_argument('--buying-date', help='date of buying')
-    update.add_argument('--vendor', help='vendor name of the hardware')
-    update.add_argument('--model', help='model name of the hardware')
-    update.add_argument('--serial-number', help='serial number of the hardware')
-    update.add_argument('--inventory', help='local inventory number of the hardware')
-    update.add_argument('--warranty', help='warranty duration of the hardware')
-    update.add_argument('--interface-speed', help='interface speed')
-    update.add_argument('--interface-type', help='interface type')
+    update.add_argument('fqdn', help='Full Qualified Domain Name of the machine')
+    update.add_argument('--interface', dest='hardware',
+                        help='MAC address of the hardware interface')
+    networks = update.add_mutually_exclusive_group()
+    networks.add_argument('--network', help='network where the interface will be bind')
+    networks.add_argument('--ip-address', help='force a specific IP address')
+    # update.add_argument('--description', help='a description of the hardware')
+    # update.add_argument('--owner', help='owner of the hardware')
+    # update.add_argument('--buying-date', help='date of buying')
+    # update.add_argument('--vendor', help='vendor name of the hardware')
+    # update.add_argument('--model', help='model name of the hardware')
+    # update.add_argument('--serial-number', help='serial number of the hardware')
+    # update.add_argument('--inventory', help='local inventory number of the hardware')
+    # update.add_argument('--warranty', help='warranty duration of the hardware')
+    # update.add_argument('--interface-speed', help='interface speed')
+    # update.add_argument('--interface-type', help='interface type')
 
     # To delete a hardware, we just need to have the hardware name
-    delete.add_argument('hardware', help='hardware name')
+    delete.add_argument('host', help='host name')
 
     # To add a new interface on a hardware, we need to know the hardware name and
     # interface mac-address. Other informations are optionals

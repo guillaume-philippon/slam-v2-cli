@@ -36,10 +36,36 @@ class SlamHostController:
         }
         result = self.api.create('hosts', options.fqdn, host)
         if result['status'] == 'done':
-            print('Host {} as been created.'.format(result['host']))
+            print('host {} as been created.'.format(result['host']))
         else:
-            print('Host {} creation failed with status {}'.format(result['host'],
-                                                                  result['status']))
+            print('host {} creation failed with message\n    {}'.format(result['host'],
+                                                                        result['message']))
+
+    def update(self, options):
+        """
+        Update value of a existing host
+        :param options: argument pass through CLI
+        :return:
+        """
+        ns = None
+        domain = None
+        modification = {}
+        if options.fqdn is not None:
+            fqdn = options.fqdn.split('.', 1)
+            ns = fqdn[0]
+            domain = fqdn[1]
+        if options.hardware is not None:
+            modification['interface'] = options.hardware
+        if options.network is not None:
+            modification['network'] = options.network
+        if options.ip_address is not None:
+            modification['ip-address'] = options.ip_address
+        result = self.api.update('hosts', options.fqdn, modification)
+        if result['status'] == 'done':
+            print('host {} has been updated'.format(result['host']))
+        else:
+            print('host {} update failed with message\n    {}'.format(result['host'],
+                                                                      result['message']))
 
     def delete(self, options):
         """
@@ -47,9 +73,10 @@ class SlamHostController:
 
         :return:
         """
-        result = self.api.delete('hosts', options.hardware)
+        result = self.api.delete('hosts', options.host)
         if result['status'] == 'done':
-            print('Hosts {} as been deleted')
+            print('host {} as been deleted'.format(result['host']))
         else:
-            print('Oops..')
+            print('host {} deletation failed with message\n    {}'.format(result['host'],
+                                                                          result['message']))
 

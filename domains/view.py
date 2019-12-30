@@ -23,7 +23,6 @@ class SlamDomainView:
         :param self: object itself
         """
         domains = self.api.list('domains')
-
         print('domains:')
         for domain in domains:
             print('    - {}: {}'.format(domain['name'], domain['description']))
@@ -43,5 +42,5 @@ class SlamDomainView:
         print('contact: {}'.format(domain['contact']))
         print('entries:')
         for entry in domain['entries']:
-            print('  - name: {}'.format(entry['name']))
-            print('    description: {}'.format(entry['description']))
+            print('    - name: {} ({})'.format(entry['name'], entry['type']))
+            print('      description: {}'.format(entry['description']))
