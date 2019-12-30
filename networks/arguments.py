@@ -18,11 +18,13 @@ def networks_argparse(parser):
     # - update: modify a existing network. All value are not mutable
     # - delete: destroy a network
     # - show: show detail of a specific network
+    # - add: add a ip address
     subparsers.add_parser('list', help='list all networks')
     create = subparsers.add_parser('create', help='create new network')
     update = subparsers.add_parser('update', help='update network information')
     delete = subparsers.add_parser('delete', help='delete a network')
     show = subparsers.add_parser('show', help='show detail of a specific network')
+    add = subparsers.add_parser('add', help='add a address on a network')
 
     # To create a network, we need a network name, a network address and prefix,
     # and optionaly
@@ -63,3 +65,7 @@ def networks_argparse(parser):
 
     # To have detail of a specific network, we just need the network name
     show.add_argument('network', help='network you want to show')
+
+    # To add a new ip we need the network name and the following optionals value
+    add.add_argument('network', help='network name')
+    add.add_argument('--ip-address', help='IP address')

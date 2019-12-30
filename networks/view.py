@@ -46,3 +46,6 @@ class SlamNetworkView:
         print('    DNS master: {}'.format(network['dns_master']))
         print('          DHCP: {}'.format(network['dhcp']))
         print('          VLAN: {}'.format(network['vlan']))
+        print('     Addresses:')
+        for address in network['addresses']:
+            print('             - {}'.format(address['ip']))

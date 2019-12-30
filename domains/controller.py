@@ -86,7 +86,7 @@ class SlamDomainController:
             entry['description'] = options.description
         result = self.api.create('domains', domain, entry, field=ns)
         if result['status'] == 'done':
-            print('{} as been added'.format(result['entry']))
+            print('{} has been added'.format(result['entry']))
         else:
             print('{} addition has failed with message\n    {}'.format(
                 result['entry'],

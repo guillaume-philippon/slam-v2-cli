@@ -78,3 +78,22 @@ class SlamNetworkController:
         else:
             print('network {} deletation failed with message\n    {}'.format(result['network'],
                                                                              result['message']))
+
+    def add(self, options):
+        """
+        Add a address in a network
+        :param options: arguments pass through CLI
+        :return:
+        """
+        if options.ip_address is not None:
+            address = options.ip_address
+        else:
+            address = 'auto'
+        result = self.api.create('networks', options.network, dict(), field=address)
+        if result['status'] == 'done':
+            print('{} has been added'.format(result['address']))
+        else:
+            print('{} addition failed with message\n    {}'.format(
+                result['address'],
+                result['message']
+            ))
