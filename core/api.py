@@ -63,18 +63,22 @@ class SlamAPIController:
         except KeyError:
             pass
 
-    def list(self, plugin, item=None):
+    def list(self, plugin, item=None, field=None):
         """
         A standard way to retrieve all element into a collection. item can be use to have a sublevel
         in case of item in collection is itself a collection.
 
         :param plugin: the plugin we want to use (domains, networks, hardware, ...)
         :param item: a specific element (domain, network, hardware, ...)
+        :param field: a specific field
         :return:
         """
         uri = "{}/{}".format(self.location, plugin)
         if item is not None:
-            uri = "{}/{}".format(uri, item)
+            if field is not None:
+                uri = "{}/{}/{}".format(uri, item, field)
+            else:
+                uri = "{}/{}".format(uri, item)
         print(uri)
         result = self.session.get(uri)
         try:

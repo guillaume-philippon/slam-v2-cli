@@ -97,3 +97,67 @@ class SlamNetworkController:
                 result['address'],
                 result['message']
             ))
+
+    def remove(self, options):
+        """
+        Remove a address on a network
+        :param options:
+        :return:
+        """
+        result = self.api.delete('networks', options.network, field=options.ip_address)
+        if result['status'] == 'done':
+            print('{} has been removed'.format(result['address']))
+        else:
+            print('{} removal failed with message\n    {}'.format(result['address'],
+                                                                  result['message']))
+
+    def display(self, options):
+        """
+        Display all entries in a
+        :param options:
+        :return:
+        """
+        feature_uri = '{}'.format(options.address)
+        result = self.api.list('networks', options.network, field=feature_uri)
+        print('address : {}'.format(result['address']))
+        print(' entries:')
+        for entry in result['entries']:
+            print('        - {}.{} ({})'.format(entry['ns'], entry['domain'], entry['type']))
+        pass
+
+    def include(self, options):
+        """
+        Include a NS entry in a address
+        :param options:
+        :return:
+        """
+        if options.type is not None:
+            args = {
+                'ns_type': options.type
+            }
+        feature_uri = '{}/{}'.format(options.address, options.fqdn)
+        result = self.api.create('networks', options.network, args, field=feature_uri)
+        if result['status'] == 'done':
+            print('{} has been include'.format(result['entry']))
+        else:
+            print('{} inclusion failed with message\n    {}'.format(result['entry'],
+                                                                    result['message']))
+
+    def exclude(self, options):
+        """
+        Exclude a NS entry in a address
+        :param options:
+        :return:
+        """
+        if options.type is not None:
+            args = {
+                'ns_type': options.type
+            }
+        feature_uri = '{}/{}'.format(options.address, options.fqdn)
+        result = self.api.delete('networks', options.network, field=feature_uri, options=args)
+        if result['status'] == 'done':
+            print('{} has been exclude'.format(result['entry']))
+        else:
+            print('{} exclusion failed with message\n    {}'.format(result['entry'],
+                                                                    result['message']))
+        pass

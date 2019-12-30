@@ -19,12 +19,20 @@ def networks_argparse(parser):
     # - delete: destroy a network
     # - show: show detail of a specific network
     # - add: add a ip address
+    # - remove: remove a ip address
+    # - display: display all entries in a address
+    # - include: include a entry in a address
+    # - exclude: exclude a entry in a address
     subparsers.add_parser('list', help='list all networks')
     create = subparsers.add_parser('create', help='create new network')
     update = subparsers.add_parser('update', help='update network information')
     delete = subparsers.add_parser('delete', help='delete a network')
     show = subparsers.add_parser('show', help='show detail of a specific network')
     add = subparsers.add_parser('add', help='add a address on a network')
+    remove = subparsers.add_parser('remove', help='remove a address on a network')
+    display = subparsers.add_parser('display', help='display NS entries in a address')
+    include = subparsers.add_parser('include', help='include a NS entry in a address')
+    exclude = subparsers.add_parser('exclude', help='exclude a NS entry in a address')
 
     # To create a network, we need a network name, a network address and prefix,
     # and optionaly
@@ -69,3 +77,23 @@ def networks_argparse(parser):
     # To add a new ip we need the network name and the following optionals value
     add.add_argument('network', help='network name')
     add.add_argument('--ip-address', help='IP address')
+
+    # To remove a ip address, we need to now the network and ip address
+    remove.add_argument('network', help='network name')
+    remove.add_argument('--ip-address', help='IP address', required=True)
+
+    # To include a entry in ip address, we need network, address and a fqdn
+    display.add_argument('network', help='network name')
+    display.add_argument('address', help='address IP')
+
+    # To include a entry in ip address, we need network, address and a fqdn
+    include.add_argument('network', help='network name')
+    include.add_argument('address', help='address IP')
+    include.add_argument('fqdn', help='Full Qualified Domain Name')
+    include.add_argument('--type', help='NS type')
+
+    # To exclude a entry in ip address, we need network, address and a fqdn
+    exclude.add_argument('network', help='network name')
+    exclude.add_argument('address', help='address IP')
+    exclude.add_argument('fqdn', help='Full Qualified Domain Name')
+    exclude.add_argument('--type', help='NS type')

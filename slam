@@ -33,16 +33,32 @@ elif args.plugin() == 'hosts':
     ctrl = SlamHostController(session)
 
 if args.action() == 'list':
+    # list action mean retrieve all element of a plugin
     view.list()
 elif args.action() == 'show':
+    # show action mean retrieve all information about one element of a plugin
     view.show(args.options())
 elif args.action() == 'create':
+    # create action mean create a element on a plugin
     ctrl.create(args.options())
-elif args.action() == 'add':
-    ctrl.add(args.options())
-elif args.action() == 'update':
-    ctrl.update(args.options())
 elif args.action() == 'delete':
+    # delete action mean delete a element on a plugin
     ctrl.delete(args.options())
+elif args.action() == 'update':
+    # update action mean modify a item on a element
+    ctrl.update(args.options())
+elif args.action() == 'add':
+    # add mean add a new item in a element
+    ctrl.add(args.options())
 elif args.action() == 'remove':
+    # remove mean remove a item in a element
     ctrl.remove(args.options())
+elif args.action() == 'display':
+    # display mean retrive all features a in a item
+    ctrl.display(args.options())
+elif args.action() == 'include':
+    # include mean add feature a in a item
+    ctrl.include(args.options())
+elif args.action() == 'exclude':
+    # exclude mean remove feature a in a item
+    ctrl.exclude(args.options())
