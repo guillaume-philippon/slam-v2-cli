@@ -37,18 +37,18 @@ class SlamHardwareView:
         :param options: arguments passed throught CLI
         """
         hardware = self.api.list('hardware', options.hardware)
-        print('hardware name: {}'.format(hardware['name']))
+        print('hardware name: {}'.format(hardware['hardware']))
         print('  description: {}'.format(hardware['description']))
         print('        owner: {}'.format(hardware['owner']))
         print('       vendor: {}'.format(hardware['vendor']))
         print('        model: {}'.format(hardware['model']))
-        print('serial number: {}'.format(hardware['serial-number']))
+        print('serial number: {}'.format(hardware['serial_number']))
         print('    inventory: {}'.format(hardware['inventory']))
-        print('  buying date: {}'.format(hardware['buying-date']))
+        print('  buying date: {}'.format(hardware['buying_date']))
         print('     warranty: {}'.format(hardware['warranty']))
         print('   interfaces:')
         for interface in hardware['interfaces']:
             if interface['type'] is not None:
-                print('        - {}: {}'.format(interface['type'], interface['mac-address']))
+                print('        - {}: {}'.format(interface['type'], interface['mac_address']))
             else:
-                print('        - mac-address: {}'.format(interface['mac-address']))
+                print('        - mac-address: {}'.format(interface['mac_address']))

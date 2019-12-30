@@ -25,16 +25,16 @@ class SlamHardwareController:
             'name': options.hardware,
             'description': options.description,
             'owner': options.owner,
-            'interface-mac-address': options.interface_mac_address,
-            'interface-speed': options.interface_speed,
-            'interface-type': options.interface_type
+            'interface_mac_address': options.interface_mac_address,
+            'interface_speed': options.interface_speed,
+            'interface_type': options.interface_type
         }
         result = self.api.create('hardware', options.hardware, hardware)
         if result['status'] == 'done':
-            print('Hardware {} as been created.'.format(result['hardware']))
+            print('hardware {} has been created.'.format(result['hardware']))
         else:
-            print('Hardware {} creation failed with status {}'.format(result['hardware'],
-                                                                      result['status']))
+            print('hardware {} creation failed with message\n    {}'.format(result['hardware'],
+                                                                            result['message']))
 
     def update(self, options):
         """
@@ -59,9 +59,10 @@ class SlamHardwareController:
         """
         result = self.api.delete('hardware', options.hardware)
         if result['status'] == 'done':
-            print('Hardware {} as been deleted')
+            print('hardware {} has been deleted'.format(result['hardware']))
         else:
-            print('Oops..')
+            print('{} deletation failed with message\n    {}'.format(result['hardware'],
+                                                                     result['message']))
 
     def add(self, options):
         """
@@ -71,18 +72,19 @@ class SlamHardwareController:
         :return:
         """
         interface = dict()
-        interface['interface-mac-address'] = options.interface_mac_address
+        interface['interface_mac_address'] = options.interface_mac_address
         if options.interface_type is not None:
-            interface['interface-type'] = options.interface_type
+            interface['interface_type'] = options.interface_type
         if options.interface_speed is not None:
-            interface['interface-speed'] = options.interface_speed
+            interface['interface_speed'] = options.interface_speed
         result = self.api.create('hardware', options.hardware, interface,
-                                 field='interfaces/{}'.format(interface['interface-mac-address']))
+                                 field='interfaces/{}'.format(interface['interface_mac_address']))
         if result['status'] == 'done':
-            print('Interface {} as been add to {}'.format(options.interface_mac_address,
-                                                          options.hardware))
+            print('interface {} has been add to {}'.format(options.interface_mac_address,
+                                                           options.hardware))
         else:
-            print('Interface addition failed with status {}'.format(result['status']))
+            print('{} addition failed with message\n    {}'.format(result['status'],
+                                                                   result['message']))
 
     def remove(self, options):
         """
