@@ -33,10 +33,10 @@ class SlamNetworkController:
         }
         result = self.api.create('networks', options.network, network)
         if result['status'] == 'done':
-            print('Network {} as been created.'.format(result['network']))
+            print('network {} has been created.'.format(result['network']))
         else:
-            print('Network {} creation failed with status {}'.format(result['network'],
-                                                                     result['status']))
+            print('network {} creation failed with message\n    {}'.format(result['network'],
+                                                                           result['message']))
 
     def update(self, options):
         """
@@ -45,13 +45,25 @@ class SlamNetworkController:
         :param self: object itself
         :param options: arguments pass throught CLI
         """
-        modification = options.__dict__
+        modification = {}
+        if options.description is not None:
+            modification['description'] = options.description
+        if options.gateway is not None:
+            modification['gateway'] = options.gateway
+        if options.contact is not None:
+            modification['contact'] = options.contact
+        if options.dns_master is not None:
+            modification['dns_master'] = options.dns_master
+        if options.dhcp is not None:
+            modification['dhcp'] = options.dhcp
+        if options.vlan is not None:
+            modification['vlan'] = options.vlan
         result = self.api.update('networks', options.network, modification)
         if result['status'] == 'done':
-            print('Network {} has been modified'.format(options.network))
+            print('network {} has been modified'.format(result['network']))
         else:
-            print('Network {} modification failed with status {}'.format(options.network,
-                                                                         result['status']))
+            print('network {} modification failed with message\n    {}'.format(result['network'],
+                                                                               result['message']))
 
     def delete(self, options):
         """
@@ -62,6 +74,7 @@ class SlamNetworkController:
         """
         result = self.api.delete('networks', options.network)
         if result['status'] == 'done':
-            print('network {} has been deleted'.format(options.network))
+            print('network {} has been deleted'.format(result['network']))
         else:
-            print('Oops')
+            print('network {} deletation failed with message\n    {}'.format(result['network'],
+                                                                             result['message']))

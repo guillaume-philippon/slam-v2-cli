@@ -21,10 +21,10 @@ class SlamNetworkView:
 
         :param self: object itself
         """
-        print('networks:')
         networks = self.api.list('networks')
+        print('networks:')
         for network in networks:
-            print('    - {} ({}/{}): {}'.format(network['name'],
+            print('    - {} ({}/{}): {}'.format(network['network'],
                                                 network['address'],
                                                 network['prefix'],
                                                 network['description']))
@@ -38,11 +38,11 @@ class SlamNetworkView:
         :param options: arguments passed throught CLI
         """
         network = self.api.list('networks', options.network)
-        print('network name: {}'.format(network['name']))
-        print('description: {}'.format(network['description']))
-        print('contact: {}'.format(network['contact']))
+        print('  network name: {}'.format(network['network']))
+        print('   description: {}'.format(network['description']))
+        print('       contact: {}'.format(network['contact']))
         print('address/prefix: {}/{}'.format(network['address'], network['prefix']))
-        print('gateway: {}'.format(network['gateway']))
-        print('DNS master: {}'.format(network['dns-master']))
-        print('DHCP: {}'.format(network['dhcp']))
-        print('VLAN: {}'.format(network['vlan']))
+        print('       gateway: {}'.format(network['gateway']))
+        print('    DNS master: {}'.format(network['dns_master']))
+        print('          DHCP: {}'.format(network['dhcp']))
+        print('          VLAN: {}'.format(network['vlan']))

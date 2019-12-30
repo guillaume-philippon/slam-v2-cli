@@ -38,17 +38,17 @@ class SlamHardwareView:
         """
         hardware = self.api.list('hardware', options.hardware)
         print('hardware name: {}'.format(hardware['name']))
-        print('description: {}'.format(hardware['description']))
-        print('owner: {}'.format(hardware['owner']))
-        print('vendor: {}'.format(hardware['vendor']))
-        print('model: {}'.format(hardware['model']))
+        print('  description: {}'.format(hardware['description']))
+        print('        owner: {}'.format(hardware['owner']))
+        print('       vendor: {}'.format(hardware['vendor']))
+        print('        model: {}'.format(hardware['model']))
         print('serial number: {}'.format(hardware['serial-number']))
-        print('inventory: {}'.format(hardware['inventory']))
-        print('buying date: {}'.format(hardware['buying-date']))
-        print('warranty: {}'.format(hardware['warranty']))
-        print('interfaces:')
+        print('    inventory: {}'.format(hardware['inventory']))
+        print('  buying date: {}'.format(hardware['buying-date']))
+        print('     warranty: {}'.format(hardware['warranty']))
+        print('   interfaces:')
         for interface in hardware['interfaces']:
             if interface['type'] is not None:
-                print('    - {}: {}'.format(interface['type'], interface['mac-address']))
+                print('        - {}: {}'.format(interface['type'], interface['mac-address']))
             else:
-                print('    - mac-address: {}'.format(interface['mac-address']))
+                print('        - mac-address: {}'.format(interface['mac-address']))
