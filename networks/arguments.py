@@ -77,6 +77,7 @@ def networks_argparse(parser):
     # To add a new ip we need the network name and the following optionals value
     add.add_argument('network', help='network name')
     add.add_argument('--ip-address', help='IP address')
+    add.add_argument('--default-name', help='Default DNS name')
 
     # To remove a ip address, we need to now the network and ip address
     remove.add_argument('network', help='network name')

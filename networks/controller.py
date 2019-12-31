@@ -85,11 +85,16 @@ class SlamNetworkController:
         :param options: arguments pass through CLI
         :return:
         """
+        arg = dict()
         if options.ip_address is not None:
             address = options.ip_address
         else:
             address = 'auto'
-        result = self.api.create('networks', options.network, dict(), field=address)
+        if options.default_name is not None:
+            fqdn = options.default_name.split('.', 1)
+            arg['name'] = fqdn[0]
+            arg['domain'] = fqdn[1]
+        result = self.api.create('networks', options.network, arg, field=address)
         if result['status'] == 'done':
             print('{} has been added'.format(result['address']))
         else:

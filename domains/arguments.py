@@ -35,7 +35,7 @@ def domains_argparse(parser):
     create.add_argument('domain', help='domain name')
     create.add_argument('--description', help='a description of the domain')
     create.add_argument('--contact', help='a contact email for the domain')
-    create.add_argument('--dns-master', help='DNS master address')
+    create.add_argument('--dns-master', help='DNS master address', required=True)
 
     # To update a domain, we need to know the domain name and the following value are
     # mutable
