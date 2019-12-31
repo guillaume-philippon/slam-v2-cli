@@ -43,5 +43,6 @@ class SlamDomainView:
         print('    contact: {}'.format(domain['contact']))
         print('    entries:')
         for entry in domain['entries']:
-            print('        - {} ({})'.format(entry['name'], entry['type']))
+            print('        - {} ({}) {}'.format(entry['name'], entry['type'],
+                                                ", ".join([str(x) for x in entry['addresses']])))
             # print('          description: {}'.format(entry['description']))
