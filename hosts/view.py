@@ -24,7 +24,7 @@ class SlamHostView:
         hosts = self.api.list('hosts')
         print('hosts:')
         for host in hosts:
-            print('    - {} ({})'.format(host['name'], host['ip-address']))
+            print('    - {} ()'.format(host['name']))
 
     def show(self, options):
         """
