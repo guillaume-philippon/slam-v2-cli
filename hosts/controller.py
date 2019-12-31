@@ -32,13 +32,13 @@ class SlamHostController:
             'network': options.network,
             'ns': ns,
             'domain': domain,
-            'ip-address': options.ip_address
+            'ip_address': options.ip_address
         }
         result = self.api.create('hosts', options.fqdn, host)
         if result['status'] == 'done':
             print('host {} as been created.'.format(result['host']))
         else:
-            print('host {} creation failed with message\n    {}'.format(result['host'],
+            print('host {} creation failed with message\n    {}'.format(options.fqdn,
                                                                         result['message']))
 
     def update(self, options):
@@ -59,7 +59,7 @@ class SlamHostController:
         if options.network is not None:
             modification['network'] = options.network
         if options.ip_address is not None:
-            modification['ip-address'] = options.ip_address
+            modification['ip_address'] = options.ip_address
         result = self.api.update('hosts', options.fqdn, modification)
         if result['status'] == 'done':
             print('host {} has been updated'.format(result['host']))

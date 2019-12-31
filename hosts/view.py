@@ -24,7 +24,10 @@ class SlamHostView:
         hosts = self.api.list('hosts')
         print('hosts:')
         for host in hosts:
-            print('    - {} ()'.format(host['name']))
+            try:
+                print('    - {} ({})'.format(host['name'], host['network']))
+            except KeyError:
+                print('    - {}'.format(host['name']))
 
     def show(self, options):
         """
