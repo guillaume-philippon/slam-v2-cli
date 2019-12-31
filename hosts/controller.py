@@ -80,3 +80,17 @@ class SlamHostController:
             print('host {} deletation failed with message\n    {}'.format(result['host'],
                                                                           result['message']))
 
+    def add(self, options):
+        """
+        Add a new IP on host
+        :param options:
+        :return:
+        """
+        address = dict()
+        address['ip_address'] = options.ip_address
+        result = self.api.create('hosts', options.host, address, field=options.ip_address)
+        if result['status'] == 'done':
+            print('address {} has been added'.format(options.ip_address))
+        else:
+            print('{} addition failed with message\n    {}'.format(result['status'],
+                                                                   result['message']))

@@ -113,6 +113,7 @@ class SlamNetworkController:
         if result['status'] == 'done':
             print('{} has been removed'.format(result['address']))
         else:
+            print(result)
             print('{} removal failed with message\n    {}'.format(result['address'],
                                                                   result['message']))
 
