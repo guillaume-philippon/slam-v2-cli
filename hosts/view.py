@@ -44,7 +44,8 @@ class SlamHostView:
         print('network:')
         try:
             print('    - name: {}'.format(host['network']['name']))
-            if host['network']['ip-address'] is not None:
-                print('      ip: {}'.format(host['network']['ip-address']))
+            if host['network']['addresses'] is not None:
+                for address in host['addresses']:
+                    print('      ip: {}'.format(address))
         except KeyError:
             pass
