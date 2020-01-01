@@ -22,7 +22,7 @@ class SlamDomainView:
 
         :param self: object itself
         """
-        domains = self.api.list('domains')
+        domains = self.api.get('domains')
         print('domains:')
         for domain in domains:
             print('    - {}: {}'.format(domain['name'], domain['description']))
@@ -35,7 +35,7 @@ class SlamDomainView:
         :param self: object itself
         :param options: arguments passed throught CLI
         """
-        domain = self.api.list('domains', options.domain)
+        domain = self.api.get('domains', options.domain)
         # print(domain)
         print('     domain: {}'.format(domain['domain']))
         print('description: {}'.format(domain['description']))

@@ -21,7 +21,7 @@ class SlamHardwareView:
 
         :param self: object itself
         """
-        networks = self.api.list('hardware')
+        networks = self.api.get('hardware')
         print('inventory:')
         for network in networks:
             print('    - {} ({}): {}'.format(network['name'],
@@ -36,7 +36,7 @@ class SlamHardwareView:
         :param self: object itself
         :param options: arguments passed throught CLI
         """
-        hardware = self.api.list('hardware', options.hardware)
+        hardware = self.api.get('hardware', options.hardware)
         print('hardware name: {}'.format(hardware['hardware']))
         print('  description: {}'.format(hardware['description']))
         print('        owner: {}'.format(hardware['owner']))

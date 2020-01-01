@@ -21,7 +21,7 @@ class SlamNetworkView:
 
         :param self: object itself
         """
-        networks = self.api.list('networks')
+        networks = self.api.get('networks')
         print('networks:')
         for network in networks:
             print('    - {} ({}/{}): {}'.format(network['network'],
@@ -37,7 +37,7 @@ class SlamNetworkView:
         :param self: object itself
         :param options: arguments passed throught CLI
         """
-        network = self.api.list('networks', options.network)
+        network = self.api.get('networks', options.network)
         print('  network name: {}'.format(network['network']))
         print('   description: {}'.format(network['description']))
         print('       contact: {}'.format(network['contact']))

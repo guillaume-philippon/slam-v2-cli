@@ -21,7 +21,7 @@ class SlamHostView:
 
         :param self: object itself
         """
-        hosts = self.api.list('hosts')
+        hosts = self.api.get('hosts')
         print('hosts:')
         for host in hosts:
             try:
@@ -36,7 +36,7 @@ class SlamHostView:
         :param options: arguments passed througth CLI
         :return:
         """
-        host = self.api.list('hosts', options.host)
+        host = self.api.get('hosts', options.host)
         print('    host: {}'.format(host['host']))
         try:
             print('hardware:')

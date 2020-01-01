@@ -63,7 +63,7 @@ class SlamAPIController:
         except KeyError:
             pass
 
-    def list(self, plugin, item=None, field=None):
+    def get(self, plugin, item=None, field=None):
         """
         A standard way to retrieve all element into a collection. item can be use to have a sublevel
         in case of item in collection is itself a collection.
