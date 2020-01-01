@@ -80,10 +80,19 @@ class SlamDomainController:
         ns = fqdn[0]
         domain = fqdn[1]
         entry = dict()
+        args = dict()
+        if options.reference is not None:
+            alias = options.reference.split('.', 1)
+            alias_ns = alias[0]
+            alias_domain = alias[1]
+            entry['sub_entry_name'] = alias_ns
+            entry['sub_entry_domain'] = alias_domain
+            entry['sub_entry_type'] = 'A'
         if options.type is not None:
             entry['ns_type'] = options.type
         if options.description is not None:
             entry['description'] = options.description
+        print(entry)
         result = self.api.create('domains', domain, entry, field=ns)
         if result['status'] == 'done':
             print('{} has been added'.format(result['entry']))
@@ -108,6 +117,6 @@ class SlamDomainController:
             args['type'] = options.type
         result = self.api.delete('domains', domain, field=ns, options=args)
         if result['status'] == 'done':
-            print('Name Resolution {} as been removed from domain {}'.format(ns, domain))
+            print('{} as been removed from domain {}'.format(ns, domain))
         else:
-            print('Oops')
+            print('{} removal failed with message\n    {}'.format(ns, result['message']))
