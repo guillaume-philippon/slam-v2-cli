@@ -37,7 +37,7 @@ class SlamHostView:
         :return:
         """
         host = self.api.get('hosts', options.host)
-        print('    host: {}'.format(host['host']))
+        print('    host: {}'.format(host['name']))
         try:
             print('hardware:')
             print('        - name: {}'.format(host['hardware']['name']))

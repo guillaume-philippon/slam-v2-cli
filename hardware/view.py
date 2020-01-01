@@ -37,7 +37,7 @@ class SlamHardwareView:
         :param options: arguments passed throught CLI
         """
         hardware = self.api.get('hardware', options.hardware)
-        print('hardware name: {}'.format(hardware['hardware']))
+        print('hardware name: {}'.format(hardware['name']))
         print('  description: {}'.format(hardware['description']))
         print('        owner: {}'.format(hardware['owner']))
         print('       vendor: {}'.format(hardware['vendor']))

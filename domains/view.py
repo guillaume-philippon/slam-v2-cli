@@ -37,7 +37,7 @@ class SlamDomainView:
         """
         domain = self.api.get('domains', options.domain)
         # print(domain)
-        print('     domain: {}'.format(domain['domain']))
+        print('     domain: {}'.format(domain['name']))
         print('description: {}'.format(domain['description']))
         print(' DNS master: {}'.format(domain['dns_master']))
         print('    contact: {}'.format(domain['contact']))
