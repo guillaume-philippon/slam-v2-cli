@@ -12,6 +12,8 @@ from hardware.view import SlamHardwareView
 from hardware.controller import SlamHardwareController
 from hosts.controller import SlamHostController
 from hosts.view import SlamHostView
+from producer.view import SlamProducerView
+from producer.controller import SlamProducerController
 
 args = arguments.SlamArgumentsParser()
 session = api.SlamAPIController()
@@ -31,6 +33,9 @@ elif args.plugin() == 'hardware':
 elif args.plugin() == 'hosts':
     view = SlamHostView(session)
     ctrl = SlamHostController(session)
+elif args.plugin() == 'producer':
+    view = SlamProducerView(session)
+    ctrl = SlamProducerController(session)
 
 if args.action() == 'list':
     # list action mean retrieve all element of a plugin
@@ -62,3 +67,13 @@ elif args.action() == 'include':
 elif args.action() == 'exclude':
     # exclude mean remove feature a in a item
     ctrl.exclude(args.options())
+elif args.action() == 'diff':
+    # exclude mean remove feature a in a item
+    view.diff()
+elif args.action() == 'commit':
+    # exclude mean remove feature a in a item
+    ctrl.commit()
+elif args.action() == 'publish':
+    # exclude mean remove feature a in a item
+    ctrl.publish()
+
