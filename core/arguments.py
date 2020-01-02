@@ -18,7 +18,7 @@ class SlamArgumentsParser:
         Here we built all parser and subparser.
         """
         parser = argparse.ArgumentParser()
-        subparsers = parser.add_subparsers(help='Plugins', dest='plugin')
+        subparsers = parser.add_subparsers(help='Plugins', dest='plugin', required=True)
 
         domains = subparsers.add_parser('domains')
         networks = subparsers.add_parser('networks')

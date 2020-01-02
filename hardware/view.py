@@ -48,7 +48,4 @@ class SlamHardwareView:
         print('     warranty: {}'.format(hardware['warranty']))
         print('   interfaces:')
         for interface in hardware['interfaces']:
-            if interface['type'] is not None:
-                print('        - {}: {}'.format(interface['type'], interface['mac_address']))
-            else:
-                print('        - mac-address: {}'.format(interface['mac_address']))
+            print('        - mac-address: {}'.format(interface['mac_address']))

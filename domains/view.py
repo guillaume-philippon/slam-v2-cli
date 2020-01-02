@@ -39,10 +39,8 @@ class SlamDomainView:
         # print(domain)
         print('     domain: {}'.format(domain['name']))
         print('description: {}'.format(domain['description']))
-        print(' DNS master: {}'.format(domain['dns_master']))
         print('    contact: {}'.format(domain['contact']))
         print('    entries:')
         for entry in domain['entries']:
             print('        - {} ({}) {}'.format(entry['name'], entry['type'],
-                                                ", ".join([str(x) for x in entry['addresses']])))
-            # print('          description: {}'.format(entry['description']))
+                                                ", ".join([str(x['ip']) for x in entry['addresses']])))

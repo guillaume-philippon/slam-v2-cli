@@ -48,4 +48,10 @@ class SlamNetworkView:
         print('          VLAN: {}'.format(network['vlan']))
         print('     Addresses:')
         for address in network['addresses']:
-            print('             - {} {}'.format(address['ip'], address['fqdn']))
+            # print('             - {} {}'.format(address['ip'], address['fqdn']))
+            print('             - {}'.format(address['ip']))
+            for entry in address['ns_entries']:
+                print('                 {}.{} ({})'.format(entry['name'],
+                                                           entry['domain']['name'],
+                                                           entry['type']))
+

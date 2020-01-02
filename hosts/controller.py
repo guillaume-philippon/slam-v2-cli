@@ -32,7 +32,8 @@ class SlamHostController:
             'network': options.network,
             'ns': ns,
             'domain': domain,
-            'ip_address': options.ip_address
+            'ip_address': options.ip_address,
+            'no_ip': False
         }
         result = self.api.create('hosts', options.fqdn, host)
         if result['status'] == 'done':

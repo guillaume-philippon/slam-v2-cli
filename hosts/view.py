@@ -22,12 +22,10 @@ class SlamHostView:
         :param self: object itself
         """
         hosts = self.api.get('hosts')
+        print(hosts)
         print('hosts:')
         for host in hosts:
-            try:
-                print('    - {} ({})'.format(host['name'], host['network']))
-            except KeyError:
-                print('    - {}'.format(host['name']))
+            print('    - {}'.format(host['name']))
 
     def show(self, options):
         """
@@ -46,9 +44,10 @@ class SlamHostView:
             pass
         print(' network:')
         try:
-            print('        - name: {}'.format(host['network']['name']))
-            if host['network']['addresses'] is not None:
-                for address in host['network']['addresses']:
-                    print('            ip: {}'.format(address))
+            print('        - main: {}'.format(host['network']['name']))
+            print('        - addresses:')
+            if host['addresses'] is not None:
+                for address in host['addresses']:
+                    print('            ip: {}'.format(address['ip']))
         except KeyError:
             pass

@@ -35,7 +35,9 @@ def hosts_argparse(parser):
     create.add_argument('--interface', dest='hardware',
                         help='MAC address of the hardware interface')
     networks = create.add_mutually_exclusive_group()
+    # networks_options = networks.add_argument_group('g1')
     networks.add_argument('--network', help='network where the interface will be bind')
+    # networks_options.add_argument('--no-ip', action='store_true', help='do not generate a IP from network')
     networks.add_argument('--ip-address', help='force a specific IP address')
 
     # To update hardware information, we need to have the name of the hardware. The following
