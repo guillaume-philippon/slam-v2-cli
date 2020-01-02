@@ -36,11 +36,23 @@ class SlamDomainView:
         :param options: arguments passed throught CLI
         """
         domain = self.api.get('domains', options.domain)
-        # print(domain)
+        print(domain)
         print('     domain: {}'.format(domain['name']))
         print('description: {}'.format(domain['description']))
         print('    contact: {}'.format(domain['contact']))
         print('    entries:')
         for entry in domain['entries']:
-            print('        - {} ({}) {}'.format(entry['name'], entry['type'],
-                                                ", ".join([str(x['ip']) for x in entry['addresses']])))
+            if entry['type'] == 'A':
+                print('        - {} ({}) {}'.format(entry['name'], entry['type'],
+                                                    ", ".join([str(x['ip'])
+                                                               for x in entry['addresses']])))
+            elif entry['type'] == 'PTR':
+                print('        - {} ({}) {}'.format(entry['name'], entry['type'],
+                                                    ", ".join([str(x['ip'])
+                                                               for x in entry['addresses']])))
+            elif entry['type'] == 'CNAME':
+                print('        - {} ({}) {}'.format(entry['name'], entry['type'],
+                                                    ", ".join([str(x['name'])
+                                                               for x in entry['entries']])))
+            else:
+                print('        - {} ({})'.format(entry['name'], entry['type']))
