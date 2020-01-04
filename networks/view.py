@@ -38,6 +38,7 @@ class SlamNetworkView:
         :param options: arguments passed throught CLI
         """
         network = self.api.get('networks', options.network)
+        print(network)
         print('  network name: {}'.format(network['name']))
         print('   description: {}'.format(network['description']))
         print('       contact: {}'.format(network['contact']))

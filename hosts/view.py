@@ -22,10 +22,12 @@ class SlamHostView:
         :param self: object itself
         """
         hosts = self.api.get('hosts')
-        print(hosts)
-        print('hosts:')
-        for host in hosts:
-            print('    - {}'.format(host['name']))
+        try:
+            print('hosts:')
+            for host in hosts:
+                print('    - {}'.format(host['name']))
+        except KeyError:
+            print(hosts)
 
     def show(self, options):
         """
@@ -35,19 +37,23 @@ class SlamHostView:
         :return:
         """
         host = self.api.get('hosts', options.host)
-        print('    host: {}'.format(host['name']))
         try:
-            print('hardware:')
-            print('        - name: {}'.format(host['hardware']['name']))
-            print('           mac: {}'.format(host['hardware']['interface']))
+            print('    host: {}'.format(host['name']))
+            print('    dhcp: {}'.format(host['dhcp']))
+            try:
+                print('hardware:')
+                print('        - name: {}'.format(host['hardware']['name']))
+                print('           mac: {}'.format(host['hardware']['interface']))
+            except KeyError:
+                pass
+            print(' network:')
+            try:
+                print('        - main: {}'.format(host['network']['name']))
+                print('        - addresses:')
+                if host['addresses'] is not None:
+                    for address in host['addresses']:
+                        print('            ip: {}'.format(address['ip']))
+            except KeyError:
+                pass
         except KeyError:
-            pass
-        print(' network:')
-        try:
-            print('        - main: {}'.format(host['network']['name']))
-            print('        - addresses:')
-            if host['addresses'] is not None:
-                for address in host['addresses']:
-                    print('            ip: {}'.format(address['ip']))
-        except KeyError:
-            pass
+            print(host)

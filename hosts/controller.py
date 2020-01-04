@@ -37,7 +37,8 @@ class SlamHostController:
         }
         result = self.api.create('hosts', options.fqdn, host)
         if result['status'] == 'done':
-            print('host {} as been created.'.format(result['host']))
+            print('host {} as been created.'.format(result['name']))
+            print(result)
         else:
             print('host {} creation failed with message\n    {}'.format(options.fqdn,
                                                                         result['message']))
