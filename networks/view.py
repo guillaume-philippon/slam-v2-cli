@@ -38,21 +38,22 @@ class SlamNetworkView:
         :param options: arguments passed throught CLI
         """
         network = self.api.get('networks', options.network)
-        print(network)
-        print('  network name: {}'.format(network['name']))
-        print('   description: {}'.format(network['description']))
-        print('       contact: {}'.format(network['contact']))
-        print('address/prefix: {}/{}'.format(network['address'], network['prefix']))
-        print('       gateway: {}'.format(network['gateway']))
-        print('    DNS master: {}'.format(network['dns_master']))
-        print('          DHCP: {}'.format(network['dhcp']))
-        print('          VLAN: {}'.format(network['vlan']))
-        print('     Addresses:')
-        for address in network['addresses']:
-            # print('             - {} {}'.format(address['ip'], address['fqdn']))
-            print('             - {}'.format(address['ip']))
-            for entry in address['ns_entries']:
-                print('                 {}.{} ({})'.format(entry['name'],
-                                                           entry['domain']['name'],
-                                                           entry['type']))
-
+        try:
+            print('  network name: {}'.format(network['name']))
+            print('   description: {}'.format(network['description']))
+            print('       contact: {}'.format(network['contact']))
+            print('address/prefix: {}/{}'.format(network['address'], network['prefix']))
+            print('       gateway: {}'.format(network['gateway']))
+            print('    DNS master: {}'.format(network['dns_master']))
+            print('          DHCP: {}'.format(network['dhcp']))
+            print('          VLAN: {}'.format(network['vlan']))
+            print('     Addresses:')
+            for address in network['addresses']:
+                # print('             - {} {}'.format(address['ip'], address['fqdn']))
+                print('             - {}'.format(address['ip']))
+                for entry in address['ns_entries']:
+                    print('                 {}.{} ({})'.format(entry['name'],
+                                                               entry['domain']['name'],
+                                                               entry['type']))
+        except KeyError:
+            print(network)

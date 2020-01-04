@@ -59,6 +59,7 @@ def hosts_argparse(parser):
     add.add_argument('host', help='host name')
     # add.add_argument('--interface-mac-address', help='Interface address', required=True)
     add.add_argument('--ip-address', help='IP address', required=True)
+    add.add_argument('--fqdn', help='The fqdn of the new IP')
     # add.add_argument('--interface-speed', help='Interface speed')
     # add.add_argument('--interface-type', help='Interface type')
 

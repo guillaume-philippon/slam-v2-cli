@@ -90,6 +90,7 @@ class SlamHostController:
         """
         address = dict()
         address['ip_address'] = options.ip_address
+        address['fqdn'] = options.fqdn
         result = self.api.create('hosts', options.host, address, field=options.ip_address)
         if result['status'] == 'done':
             print('address {} has been added'.format(options.ip_address))

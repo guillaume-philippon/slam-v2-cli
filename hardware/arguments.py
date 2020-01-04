@@ -66,6 +66,7 @@ def hardware_argparse(parser):
     #  - interface-speed: the speed of the interface
     #  - interface-type: the type of interface
     update.add_argument('hardware', help='hardware name')
+    update.add_argument('--name', help='the hardware name')
     update.add_argument('--description', help='a description of the hardware')
     update.add_argument('--owner', help='owner of the hardware')
     update.add_argument('--buying-date', help='date of buying')
@@ -74,8 +75,6 @@ def hardware_argparse(parser):
     update.add_argument('--serial-number', help='serial number of the hardware')
     update.add_argument('--inventory', help='local inventory number of the hardware')
     update.add_argument('--warranty', help='warranty duration of the hardware')
-    update.add_argument('--interface-speed', help='interface speed')
-    update.add_argument('--interface-type', help='interface type')
 
     # To delete a hardware, we just need to have the hardware name
     delete.add_argument('hardware', help='hardware name')

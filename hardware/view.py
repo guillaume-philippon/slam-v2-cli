@@ -37,15 +37,18 @@ class SlamHardwareView:
         :param options: arguments passed throught CLI
         """
         hardware = self.api.get('hardware', options.hardware)
-        print('hardware name: {}'.format(hardware['name']))
-        print('  description: {}'.format(hardware['description']))
-        print('        owner: {}'.format(hardware['owner']))
-        print('       vendor: {}'.format(hardware['vendor']))
-        print('        model: {}'.format(hardware['model']))
-        print('serial number: {}'.format(hardware['serial_number']))
-        print('    inventory: {}'.format(hardware['inventory']))
-        print('  buying date: {}'.format(hardware['buying_date']))
-        print('     warranty: {}'.format(hardware['warranty']))
-        print('   interfaces:')
-        for interface in hardware['interfaces']:
-            print('        - mac-address: {}'.format(interface['mac_address']))
+        try:
+            print('hardware name: {}'.format(hardware['name']))
+            print('  description: {}'.format(hardware['description']))
+            print('        owner: {}'.format(hardware['owner']))
+            print('       vendor: {}'.format(hardware['vendor']))
+            print('        model: {}'.format(hardware['model']))
+            print('serial number: {}'.format(hardware['serial_number']))
+            print('    inventory: {}'.format(hardware['inventory']))
+            print('  buying date: {}'.format(hardware['buying_date']))
+            print('     warranty: {}'.format(hardware['warranty']))
+            print('   interfaces:')
+            for interface in hardware['interfaces']:
+                print('        - mac-address: {}'.format(interface['mac_address']))
+        except KeyError:
+            print(hardware)
