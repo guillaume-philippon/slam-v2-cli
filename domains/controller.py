@@ -29,7 +29,7 @@ class SlamDomainController:
         }
         result = self.api.create('domains', options.domain, domain)
         if result['status'] == 'done':
-            print('domain {} has been created.'.format(result['domain']))
+            print('domain {} has been created.'.format(result['name']))
         else:
             print('domain {} creation failed with message:\n    {}'.format(result['domain'],
                                                                            result['message']))
@@ -87,7 +87,7 @@ class SlamDomainController:
             alias_domain = alias[1]
             entry['sub_entry_name'] = alias_ns
             entry['sub_entry_domain'] = alias_domain
-            entry['sub_entry_type'] = 'A'
+            entry['sub_entry_type.'] = 'A'
         if options.type is not None:
             entry['ns_type'] = options.type
         if options.description is not None:
