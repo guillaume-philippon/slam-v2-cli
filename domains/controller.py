@@ -28,11 +28,14 @@ class SlamDomainController:
             'dns_master': options.dns_master
         }
         result = self.api.create('domains', options.domain, domain)
-        if result['status'] == 'done':
-            print('domain {} has been created.'.format(result['name']))
-        else:
-            print('domain {} creation failed with message:\n    {}'.format(result['domain'],
-                                                                           result['message']))
+        try:
+            if result['status'] == 'done':
+                print('domain {} has been created.'.format(result['name']))
+            else:
+                print('domain {} creation failed with message:\n    {}'.format(result['domain'],
+                                                                               result['message']))
+        except KeyError:
+            print(result)
 
     def update(self, options):
         """
@@ -49,11 +52,14 @@ class SlamDomainController:
         if options.dns_master is not None:
             modification['dns_master'] = options.dns_master
         result = self.api.update('domains', options.domain, modification)
-        if result['status'] == 'done':
-            print('domain {} has been updated'.format(options.domain))
-        else:
-            print('domain {} update failed with message:\n    {}'.format(options.domain,
-                                                                         result['message']))
+        try:
+            if result['status'] == 'done':
+                print('domain {} has been updated'.format(options.domain))
+            else:
+                print('domain {} update failed with message:\n    {}'.format(options.domain,
+                                                                             result['message']))
+        except KeyError:
+            print(result)
 
     def delete(self, options):
         """
@@ -63,11 +69,14 @@ class SlamDomainController:
         :return:
         """
         result = self.api.delete('domains', options.domain)
-        if result['status'] == 'done':
-            print('domain {} has been deleted'.format(options.domain))
-        else:
-            print('domain {} deletation has failed with message:\n    {}'.format(options.domain,
-                                                                                 result['message']))
+        try:
+            if result['status'] == 'done':
+                print('domain {} has been deleted'.format(options.domain))
+            else:
+                print('domain {} deletation has failed with message:\n    {}'.format(options.domain,
+                                                                                     result['message']))
+        except KeyError:
+            print(result)
 
     def add(self, options):
         """
@@ -92,15 +101,17 @@ class SlamDomainController:
             entry['ns_type'] = options.type
         if options.description is not None:
             entry['description'] = options.description
-        print(entry)
         result = self.api.create('domains', domain, entry, field=ns)
-        if result['status'] == 'done':
-            print('{} has been added'.format(result['entry']))
-        else:
-            print('{} addition has failed with message\n    {}'.format(
-                result['entry'],
-                result['message']
-            ))
+        try:
+            if result['status'] == 'done':
+                print('{} has been added'.format(result['entry']))
+            else:
+                print('{} addition has failed with message\n    {}'.format(
+                    result['entry'],
+                    result['message']
+                ))
+        except KeyError:
+            print(result)
 
     def remove(self, options):
         """
@@ -116,7 +127,10 @@ class SlamDomainController:
         if options.type is not None:
             args['type'] = options.type
         result = self.api.delete('domains', domain, field=ns, options=args)
-        if result['status'] == 'done':
-            print('{} as been removed from domain {}'.format(ns, domain))
-        else:
-            print('{} removal failed with message\n    {}'.format(ns, result['message']))
+        try:
+            if result['status'] == 'done':
+                print('{} as been removed from domain {}'.format(ns, domain))
+            else:
+                print('{} removal failed with message\n    {}'.format(ns, result['message']))
+        except KeyError:
+            print(result)

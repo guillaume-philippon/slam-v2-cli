@@ -19,17 +19,15 @@ class SlamProducerController:
         Create a new network on SLAM.
 
         :param self: object itself
-        :param options: arguments pass throught CLI
         """
         result = self.api.create('producer/commit', '', '')
-        print(result['data'])
+        print(result)
 
     def publish(self):
         """
         Create a new network on SLAM.
 
         :param self: object itself
-        :param options: arguments pass throught CLI
         """
         result = self.api.create('producer/publish', '', '')
-        print(result['data'])
+        print(result)

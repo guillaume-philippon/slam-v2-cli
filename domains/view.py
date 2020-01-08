@@ -23,9 +23,13 @@ class SlamDomainView:
         :param self: object itself
         """
         domains = self.api.get('domains')
-        print('domains:')
-        for domain in domains:
-            print('    - {}: {}'.format(domain['name'], domain['description']))
+        try:
+            print('domains:')
+            for domain in domains:
+                print('    - {}: {} ({} records)'.format(domain['name'], domain['description'],
+                                                         domain['entries_count']))
+        except KeyError:
+            print(domains)
 
     def show(self, options):
         """
@@ -37,7 +41,7 @@ class SlamDomainView:
         """
         domain = self.api.get('domains', options.domain)
         try:
-            print('     domain: {}'.format(domain['name']))
+            print('       name: {}'.format(domain['name']))
             print('description: {}'.format(domain['description']))
             print(' dns-master: {}'.format(domain['dns_master']))
             print('    contact: {}'.format(domain['contact']))

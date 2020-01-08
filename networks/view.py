@@ -22,12 +22,15 @@ class SlamNetworkView:
         :param self: object itself
         """
         networks = self.api.get('networks')
-        print('networks:')
-        for network in networks:
-            print('    - {} ({}/{}): {}'.format(network['name'],
-                                                network['address'],
-                                                network['prefix'],
-                                                network['description']))
+        try:
+            print('networks:')
+            for network in networks:
+                print('    - {} ({}/{}): {}'.format(network['name'],
+                                                    network['address'],
+                                                    network['prefix'],
+                                                    network['description']))
+        except KeyError:
+            print(network)
 
     def show(self, options):
         """
@@ -39,17 +42,18 @@ class SlamNetworkView:
         """
         network = self.api.get('networks', options.network)
         try:
-            print('  network name: {}'.format(network['name']))
-            print('   description: {}'.format(network['description']))
-            print('       contact: {}'.format(network['contact']))
+            print('          name: {}'.format(network['name']))
             print('address/prefix: {}/{}'.format(network['address'], network['prefix']))
+            print('       verions: {}'.format(network['version']))
+            print('   description: {}'.format(network['description']))
             print('       gateway: {}'.format(network['gateway']))
+            print('       contact: {}'.format(network['contact']))
             print('    DNS master: {}'.format(network['dns_master']))
             print('          DHCP: {}'.format(network['dhcp']))
             print('          VLAN: {}'.format(network['vlan']))
-            print('     Addresses:')
+            print('     Addresses: {}/{}'.format(network['used_addresses'],
+                                                 network['total']))
             for address in network['addresses']:
-                # print('             - {} {}'.format(address['ip'], address['fqdn']))
                 print('             - {}'.format(address['ip']))
                 for entry in address['ns_entries']:
                     print('                 {}.{} ({})'.format(entry['name'],

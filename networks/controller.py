@@ -32,11 +32,14 @@ class SlamNetworkController:
             'dns_master': options.dns_master
         }
         result = self.api.create('networks', options.network, network)
-        if result['status'] == 'done':
-            print('network {} has been created.'.format(result['network']))
-        else:
-            print('network {} creation failed with message\n    {}'.format(result['network'],
-                                                                           result['message']))
+        try:
+            if result['status'] == 'done':
+                print('network {} has been created.'.format(result['network']))
+            else:
+                print('network {} creation failed with message\n    {}'.format(result['network'],
+                                                                               result['message']))
+        except KeyError:
+            print(result)
 
     def update(self, options):
         """
@@ -59,11 +62,14 @@ class SlamNetworkController:
         if options.vlan is not None:
             modification['vlan'] = options.vlan
         result = self.api.update('networks', options.network, modification)
-        if result['status'] == 'done':
-            print('network {} has been modified'.format(result['network']))
-        else:
-            print('network {} modification failed with message\n    {}'.format(result['network'],
-                                                                               result['message']))
+        try:
+            if result['status'] == 'done':
+                print('network {} has been modified'.format(result['network']))
+            else:
+                print('network {} modification failed with message\n    {}'.format(result['network'],
+                                                                                   result['message']))
+        except KeyError:
+            print(result)
 
     def delete(self, options):
         """
@@ -73,11 +79,14 @@ class SlamNetworkController:
         :return:
         """
         result = self.api.delete('networks', options.network)
-        if result['status'] == 'done':
-            print('network {} has been deleted'.format(result['network']))
-        else:
-            print('network {} deletation failed with message\n    {}'.format(result['network'],
-                                                                             result['message']))
+        try:
+            if result['status'] == 'done':
+                print('network {} has been deleted'.format(result['network']))
+            else:
+                print('network {} deletation failed with message\n    {}'.format(result['network'],
+                                                                                 result['message']))
+        except KeyError:
+            print(result)
 
     def add(self, options):
         """
@@ -95,13 +104,16 @@ class SlamNetworkController:
             arg['name'] = fqdn[0]
             arg['domain'] = fqdn[1]
         result = self.api.create('networks', options.network, arg, field=address)
-        if result['status'] == 'done':
-            print('{} has been added'.format(result['address']))
-        else:
-            print('{} addition failed with message\n    {}'.format(
-                result['address'],
-                result['message']
-            ))
+        try:
+            if result['status'] == 'done':
+                print('{} has been added'.format(result['address']))
+            else:
+                print('{} addition failed with message\n    {}'.format(
+                    result['address'],
+                    result['message']
+                ))
+        except KeyError:
+            print(result)
 
     def remove(self, options):
         """
@@ -110,12 +122,15 @@ class SlamNetworkController:
         :return:
         """
         result = self.api.delete('networks', options.network, field=options.ip_address)
-        if result['status'] == 'done':
-            print('{} has been removed'.format(result['address']))
-        else:
+        try:
+            if result['status'] == 'done':
+                print('{} has been removed'.format(result['address']))
+            else:
+                print(result)
+                print('{} removal failed with message\n    {}'.format(result['address'],
+                                                                      result['message']))
+        except KeyError:
             print(result)
-            print('{} removal failed with message\n    {}'.format(result['address'],
-                                                                  result['message']))
 
     def display(self, options):
         """
@@ -125,11 +140,13 @@ class SlamNetworkController:
         """
         feature_uri = '{}'.format(options.address)
         result = self.api.list('networks', options.network, field=feature_uri)
-        print('address : {}'.format(result['address']))
-        print(' entries:')
-        for entry in result['entries']:
-            print('        - {}.{} ({})'.format(entry['ns'], entry['domain'], entry['type']))
-        pass
+        try:
+            print('address : {}'.format(result['address']))
+            print(' entries:')
+            for entry in result['entries']:
+                print('        - {}.{} ({})'.format(entry['ns'], entry['domain'], entry['type']))
+        except KeyError:
+            print(result)
 
     def include(self, options):
         """
@@ -143,11 +160,14 @@ class SlamNetworkController:
             }
         feature_uri = '{}/{}'.format(options.address, options.fqdn)
         result = self.api.create('networks', options.network, args, field=feature_uri)
-        if result['status'] == 'done':
-            print('{} has been include'.format(result['entry']))
-        else:
-            print('{} inclusion failed with message\n    {}'.format(result['entry'],
-                                                                    result['message']))
+        try:
+            if result['status'] == 'done':
+                print('{} has been include'.format(result['entry']))
+            else:
+                print('{} inclusion failed with message\n    {}'.format(result['entry'],
+                                                                        result['message']))
+        except KeyError:
+            print(result)
 
     def exclude(self, options):
         """
@@ -161,9 +181,11 @@ class SlamNetworkController:
             }
         feature_uri = '{}/{}'.format(options.address, options.fqdn)
         result = self.api.delete('networks', options.network, field=feature_uri, options=args)
-        if result['status'] == 'done':
-            print('{} has been exclude'.format(result['entry']))
-        else:
-            print('{} exclusion failed with message\n    {}'.format(result['entry'],
-                                                                    result['message']))
-        pass
+        try:
+            if result['status'] == 'done':
+                print('{} has been exclude'.format(result['entry']))
+            else:
+                print('{} exclusion failed with message\n    {}'.format(result['entry'],
+                                                                        result['message']))
+        except KeyError:
+            print(result)

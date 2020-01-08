@@ -30,11 +30,14 @@ class SlamHardwareController:
             'interface_type': options.interface_type
         }
         result = self.api.create('hardware', options.hardware, hardware)
-        if result['status'] == 'done':
-            print('hardware {} has been created.'.format(result['hardware']))
-        else:
-            print('hardware {} creation failed with message\n    {}'.format(result['hardware'],
-                                                                            result['message']))
+        try:
+            if result['status'] == 'done':
+                print('hardware {} has been created.'.format(result['hardware']))
+            else:
+                print('hardware {} creation failed with message\n    {}'.format(result['hardware'],
+                                                                                result['message']))
+        except KeyError:
+            print(result)
 
     def update(self, options):
         """
@@ -58,11 +61,14 @@ class SlamHardwareController:
         :return:
         """
         result = self.api.delete('hardware', options.hardware)
-        if result['status'] == 'done':
-            print('hardware {} has been deleted'.format(result['hardware']))
-        else:
-            print('{} deletation failed with message\n    {}'.format(result['hardware'],
-                                                                     result['message']))
+        try:
+            if result['status'] == 'done':
+                print('hardware {} has been deleted'.format(result['hardware']))
+            else:
+                print('{} deletation failed with message\n    {}'.format(result['hardware'],
+                                                                         result['message']))
+        except KeyError:
+            print(result)
 
     def add(self, options):
         """
@@ -79,12 +85,15 @@ class SlamHardwareController:
             interface['interface_speed'] = options.interface_speed
         result = self.api.create('hardware', options.hardware, interface,
                                  field='interfaces/{}'.format(interface['interface_mac_address']))
-        if result['status'] == 'done':
-            print('interface {} has been add to {}'.format(options.interface_mac_address,
-                                                           options.hardware))
-        else:
-            print('{} addition failed with message\n    {}'.format(result['status'],
-                                                                   result['message']))
+        try:
+            if result['status'] == 'done':
+                print('interface {} has been add to {}'.format(options.interface_mac_address,
+                                                               options.hardware))
+            else:
+                print('{} addition failed with message\n    {}'.format(result['status'],
+                                                                       result['message']))
+        except KeyError:
+            print(result)
 
     def remove(self, options):
         """
@@ -95,7 +104,10 @@ class SlamHardwareController:
         interface = options.interface_mac_address
         result = self.api.delete('hardware', options.hardware,
                                  field='interfaces/{}'.format(interface))
-        if result['status'] == 'done':
-            print('Interface {} has been removed'.format(interface))
-        else:
-            print('Oops')
+        try:
+            if result['status'] == 'done':
+                print('Interface {} has been removed'.format(interface))
+            else:
+                print('Oops')
+        except KeyError:
+            print(result)

@@ -22,11 +22,14 @@ class SlamHardwareView:
         :param self: object itself
         """
         networks = self.api.get('hardware')
-        print('inventory:')
-        for network in networks:
-            print('    - {} ({}): {}'.format(network['name'],
-                                             network['owner'],
-                                             network['description']))
+        try:
+            print('inventory:')
+            for network in networks:
+                print('    - {} ({}): {}'.format(network['name'],
+                                                 network['owner'],
+                                                 network['description']))
+        except KeyError:
+            print(network)
 
     def show(self, options):
         """
@@ -38,7 +41,7 @@ class SlamHardwareView:
         """
         hardware = self.api.get('hardware', options.hardware)
         try:
-            print('hardware name: {}'.format(hardware['name']))
+            print('         name: {}'.format(hardware['name']))
             print('  description: {}'.format(hardware['description']))
             print('        owner: {}'.format(hardware['owner']))
             print('       vendor: {}'.format(hardware['vendor']))

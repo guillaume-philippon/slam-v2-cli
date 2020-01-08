@@ -38,9 +38,9 @@ class SlamHostView:
         """
         host = self.api.get('hosts', options.host)
         try:
-            print(host)
-            print('    host: {}'.format(host['name']))
-            print('    dhcp: {}'.format(host['dhcp']))
+            print('         name: {}'.format(host['name']))
+            print('         dhcp: {}'.format(host['dhcp']))
+            print('creation date: {}'.format(host['creation_date']))
             try:
                 print('hardware:')
                 print('        - name: {}'.format(host['hardware']['name']))

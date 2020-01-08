@@ -36,12 +36,15 @@ class SlamHostController:
             'no_ip': False
         }
         result = self.api.create('hosts', options.fqdn, host)
-        if result['status'] == 'done':
-            print('host {} as been created.'.format(result['name']))
+        try:
+            if result['status'] == 'done':
+                print('host {} as been created.'.format(result['name']))
+                print(result)
+            else:
+                print('host {} creation failed with message\n    {}'.format(options.fqdn,
+                                                                            result['message']))
+        except KeyError:
             print(result)
-        else:
-            print('host {} creation failed with message\n    {}'.format(options.fqdn,
-                                                                        result['message']))
 
     def update(self, options):
         """
@@ -63,11 +66,14 @@ class SlamHostController:
         if options.ip_address is not None:
             modification['ip_address'] = options.ip_address
         result = self.api.update('hosts', options.fqdn, modification)
-        if result['status'] == 'done':
-            print('host {} has been updated'.format(result['host']))
-        else:
-            print('host {} update failed with message\n    {}'.format(result['host'],
-                                                                      result['message']))
+        try:
+            if result['status'] == 'done':
+                print('host {} has been updated'.format(result['host']))
+            else:
+                print('host {} update failed with message\n    {}'.format(result['host'],
+                                                                          result['message']))
+        except KeyError:
+            print(result)
 
     def delete(self, options):
         """
@@ -76,11 +82,14 @@ class SlamHostController:
         :return:
         """
         result = self.api.delete('hosts', options.host)
-        if result['status'] == 'done':
-            print('host {} as been deleted'.format(result['host']))
-        else:
-            print('host {} deletation failed with message\n    {}'.format(result['host'],
-                                                                          result['message']))
+        try:
+            if result['status'] == 'done':
+                print('host {} as been deleted'.format(result['host']))
+            else:
+                print('host {} deletation failed with message\n    {}'.format(result['host'],
+                                                                              result['message']))
+        except KeyError:
+            print(result)
 
     def add(self, options):
         """
@@ -92,8 +101,11 @@ class SlamHostController:
         address['ip_address'] = options.ip_address
         address['fqdn'] = options.fqdn
         result = self.api.create('hosts', options.host, address, field=options.ip_address)
-        if result['status'] == 'done':
-            print('address {} has been added'.format(options.ip_address))
-        else:
-            print('{} addition failed with message\n    {}'.format(result['status'],
-                                                                   result['message']))
+        try:
+            if result['status'] == 'done':
+                print('address {} has been added'.format(options.ip_address))
+            else:
+                print('{} addition failed with message\n    {}'.format(result['status'],
+                                                                       result['message']))
+        except KeyError:
+            print(result)
