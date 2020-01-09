@@ -28,6 +28,7 @@ class SlamNetworkController:
             'prefix': options.prefix,
             'gateway': options.gateway,
             'dhcp': options.dhcp,
+            'radius': options.radius,
             'vlan': options.vlan,
             'dns_master': options.dns_master
         }
@@ -59,6 +60,8 @@ class SlamNetworkController:
             modification['dns_master'] = options.dns_master
         if options.dhcp is not None:
             modification['dhcp'] = options.dhcp
+        if options.radius is not None:
+            modification['radius'] = options.radius
         if options.vlan is not None:
             modification['vlan'] = options.vlan
         result = self.api.update('networks', options.network, modification)

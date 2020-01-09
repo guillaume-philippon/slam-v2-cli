@@ -50,6 +50,7 @@ def networks_argparse(parser):
     create.add_argument('--contact', help='a contact email for the network')
     create.add_argument('--dns-master', help='DNS master address for reverse DNS')
     create.add_argument('--dhcp', help='DHCP server address')
+    create.add_argument('--radius', help='Radius server address')
     create.add_argument('--vlan', help='VLAN id')
 
     # To delete a network, we just need to know the name
@@ -69,6 +70,7 @@ def networks_argparse(parser):
     update.add_argument('--contact', help='a contact email for the network')
     update.add_argument('--dns-master', help='DNS master address for reverse DNS')
     update.add_argument('--dhcp', help='DHCP server address')
+    update.add_argument('--radius', help='Radius server address')
     update.add_argument('--vlan', help='VLAN id')
 
     # To have detail of a specific network, we just need the network name

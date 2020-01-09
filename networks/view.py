@@ -50,6 +50,7 @@ class SlamNetworkView:
             print('       contact: {}'.format(network['contact']))
             print('    DNS master: {}'.format(network['dns_master']))
             print('          DHCP: {}'.format(network['dhcp']))
+            print('        Radius: {}'.format(network['radius']))
             print('          VLAN: {}'.format(network['vlan']))
             print('     Addresses: {}/{}'.format(network['used_addresses'],
                                                  network['total']))
