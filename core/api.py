@@ -8,6 +8,7 @@ we use the following nomenclature
 import os
 import json
 import requests
+from distutils.util import strtobool
 
 
 class SlamAPIController:
@@ -21,6 +22,11 @@ class SlamAPIController:
         self.location = os.getenv('SLAM_LOCATION')
         self.username = os.getenv('SLAM_USERNAME')
         self.password = os.getenv('SLAM_PASSWORD')
+        if os.getenv('SLAM_SSL_VERIFY') is not None and\
+                not strtobool(os.getenv('SLAM_SSL_VERIFY')):
+            self.verify = False
+        else:
+            self.verify = True
         if self.location is None:
             self.location = input("slam uri (https://slam.example.com): ")
             os.putenv('SLAM_LOCATION', self.location)
@@ -34,7 +40,7 @@ class SlamAPIController:
         self.login_location = '/login'
         self.logout_location = '/logout'
         self.session = requests.Session()
-        self.session.verify = False
+        self.session.verify = self.verify
         self.session.headers = {
             'accept': 'application/json'
         }
