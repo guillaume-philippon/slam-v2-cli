@@ -21,7 +21,7 @@ class SlamProducerController:
         :param self: object itself
         """
         result = self.api.create('producer/commit', '', '')
-        print(result)
+        print(result['data'])
 
     def publish(self):
         """
@@ -30,4 +30,4 @@ class SlamProducerController:
         :param self: object itself
         """
         result = self.api.create('producer/publish', '', '')
-        print(result)
+        print(result['data'])
