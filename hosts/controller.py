@@ -64,6 +64,8 @@ class SlamHostController:
             modification['network'] = options.network
         if options.ip_address is not None:
             modification['ip_address'] = options.ip_address
+        if options.dhcp is not None:
+            modification['dhcp']= options.dhcp
         result = self.api.update('hosts', options.fqdn, modification)
         try:
             if result['status'] == 'done':

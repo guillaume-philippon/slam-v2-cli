@@ -45,7 +45,10 @@ def hosts_argparse(parser):
     update.add_argument('fqdn', help='Full Qualified Domain Name of the machine')
     update.add_argument('--interface', dest='hardware',
                         help='MAC address of the hardware interface')
-    update.add_argument('--dhcp',  help='Swap dhcp flag to false')
+    # update.add_argument('--dhcp',  help='Swap dhcp flag to false')
+    dhcp = update.add_mutually_exclusive_group()
+    dhcp.add_argument('--dhcp', dest='dhcp', action='store_true', help='Enable DHCP configuration')
+    dhcp.add_argument('--no-dhcp', dest='dhcp', action='store_false', help='Disable DHCP configuration')
     networks = update.add_mutually_exclusive_group()
     networks.add_argument('--network', help='network where the interface will be bind')
     networks.add_argument('--ip-address', help='force a specific IP address')
