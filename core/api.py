@@ -1,9 +1,9 @@
 """
 This module is used to provide configuration for slam-cli. To make this module generic as possible
 we use the following nomenclature
- - collection: a list of item (per example a inventory, a list of domain, ...)
- - item: a specific element into a collection (per example a explicit hardware, a domain, ...)
- - plugin: the python module we want to use
+  - collection: a list of item (per example a inventory, a list of domain, ...)
+  - item: a specific element into a collection (per example a explicit hardware, a domain, ...)
+  - plugin: the python module we want to use
 """
 import os
 import json
@@ -19,28 +19,35 @@ class SlamAPIController:
         """
         Define some default value
         """
-        self.location = os.getenv('SLAM_LOCATION')
+        # We load OS variable to get information about the server
+        self.location = os.getenv('SLAM_LOCATION')  # URI of the server
         self.username = os.getenv('SLAM_USERNAME')
         self.password = os.getenv('SLAM_PASSWORD')
         if os.getenv('SLAM_SSL_VERIFY') is not None and\
                 not strtobool(os.getenv('SLAM_SSL_VERIFY')):
+            # By default, we verify certificate but in some cases that could be fine to authorize
+            # untrusted certificate.
             self.verify = False
         else:
             self.verify = True
-        if self.location is None:
+        if self.location is None:  # If variable is not defined, we ask for it.
             self.location = input("slam uri (https://slam.example.com): ")
             os.putenv('SLAM_LOCATION', self.location)
-        if self.username is None:
+        if self.username is None:  # If username is not defined, we ask for it.
             self.username = input("slam username: ")
             os.putenv('SLAM_USERNAME', self.username)
-        if self.password is None:
+        if self.password is None:  # If passowrd is not defined, we ask for it.
             self.password = input("slam password: ")
             os.putenv('SLAM_PASSWORD', self.password)
+
+        # For security reason, we use CSRF on REST API. To get it, we have a specific path
         self.csrf_token_location = '/csrf'
         self.login_location = '/login'
         self.logout_location = '/logout'
+        # We will store information into a requests session
         self.session = requests.Session()
         self.session.verify = self.verify
+        # The REST API is trigged by a header 'Accept' with 'application/json' in it.
         self.session.headers = {
             'accept': 'application/json'
         }
@@ -64,7 +71,7 @@ class SlamAPIController:
         }
         result = self.session.post("{}{}".format(self.location, self.login_location),
                                    data=data)
-        try:
+        try:  # In case CSRF token has been updated
             self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
@@ -87,7 +94,7 @@ class SlamAPIController:
                 uri = "{}/{}".format(uri, item)
         print(uri)
         result = self.session.get(uri)
-        try:
+        try:  # In case CSRF token has been updated
             self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
@@ -109,7 +116,7 @@ class SlamAPIController:
             uri = "{}/{}".format(uri, field)
         print(uri)
         result = self.session.post(uri, data=options)
-        try:
+        try:  # In case CSRF token has been updated
             self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
@@ -127,7 +134,7 @@ class SlamAPIController:
         uri = "{}/{}/{}".format(self.location, plugin, item)
         print(uri)
         result = self.session.put(uri, data=options)
-        try:
+        try:  # In case CSRF token has been updated
             self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass
@@ -149,7 +156,7 @@ class SlamAPIController:
             uri = "{}/{}".format(uri, field)
         print(uri)
         result = self.session.delete(uri, data=options)
-        try:
+        try:  # In case CSRF token has been updated
             self.session.headers['X-CSRFToken'] = result.cookies['csrftoken']
         except KeyError:
             pass

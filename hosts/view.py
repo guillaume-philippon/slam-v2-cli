@@ -42,18 +42,16 @@ class SlamHostView:
             print('         dhcp: {}'.format(host['dhcp']))
             print('creation date: {}'.format(host['creation_date']))
             try:
-                print('hardware:')
-                print('        - name: {}'.format(host['hardware']['name']))
-                print('           mac: {}'.format(host['hardware']['interface']))
+                print('     hardware:')
+                print('           - name: {}'.format(host['hardware']['name']))
+                print('             mac: {}'.format(host['hardware']['interface']))
             except KeyError:
                 pass
-            print(' network:')
+            print('      network: ({})'.format(host['network']['name']))
             try:
-                print('        - main: {}'.format(host['network']['name']))
-                print('        - addresses:')
                 if host['addresses'] is not None:
                     for address in host['addresses']:
-                        print('            ip: {}'.format(address['ip']))
+                        print('            - {}'.format(address['ip']))
             except KeyError:
                 pass
         except KeyError:

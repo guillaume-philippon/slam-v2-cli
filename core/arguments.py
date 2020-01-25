@@ -9,6 +9,7 @@ from hardware.arguments import hardware_argparse
 from hosts.arguments import hosts_argparse
 from producer.arguments import producer_argparse
 
+
 class SlamArgumentsParser:
     """
     SlamArgumentParser is a generic argument parser for SLAM REST API.

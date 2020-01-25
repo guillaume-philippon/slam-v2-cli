@@ -23,7 +23,7 @@ class SlamDomainView:
         :param self: object itself
         """
         domains = self.api.get('domains')
-        try:
+        try:  # In case the server return a unexpected output
             print('domains:')
             for domain in domains:
                 print('    - {}: {} ({} records)'.format(domain['name'], domain['description'],
@@ -40,26 +40,26 @@ class SlamDomainView:
         :param options: arguments passed throught CLI
         """
         domain = self.api.get('domains', options.domain)
-        try:
+        try:  # In case the server return a unexpected output
             print('       name: {}'.format(domain['name']))
             print('description: {}'.format(domain['description']))
             print(' dns-master: {}'.format(domain['dns_master']))
             print('    contact: {}'.format(domain['contact']))
-            print('    entries:')
+            print('    records:')
             for entry in domain['entries']:
                 if entry['type'] == 'A':
-                    print('        - {} ({}) {}'.format(entry['name'], entry['type'],
-                                                        ", ".join([str(x['ip'])
-                                                                   for x in entry['addresses']])))
+                    print('        - {}/{} {}'.format(entry['name'], entry['type'],
+                                                      ", ".join([str(x['ip'])
+                                                                 for x in entry['addresses']])))
                 elif entry['type'] == 'PTR':
-                    print('        - {} ({}) {}'.format(entry['name'], entry['type'],
-                                                        ", ".join([str(x['ip'])
-                                                                   for x in entry['addresses']])))
+                    print('        - {}/{} {}'.format(entry['name'], entry['type'],
+                                                      ", ".join([str(x['ip'])
+                                                                 for x in entry['addresses']])))
                 elif entry['type'] == 'CNAME':
-                    print('        - {} ({}) {}'.format(entry['name'], entry['type'],
-                                                        ", ".join([str(x['name'])
-                                                                   for x in entry['entries']])))
+                    print('        - {}/{} {}'.format(entry['name'], entry['type'],
+                                                      ", ".join([str(x['name'])
+                                                                 for x in entry['entries']])))
                 else:
-                    print('        - {} ({})'.format(entry['name'], entry['type']))
+                    print('        - {}/{}'.format(entry['name'], entry['type']))
         except KeyError:
             print(domain)
