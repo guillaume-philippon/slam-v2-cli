@@ -76,4 +76,5 @@ elif args.action() == 'commit':
 elif args.action() == 'publish':
     # exclude mean remove feature a in a item
     ctrl.publish()
-
+elif args.action() == 'import':
+    ctrl.import_from_file(args.options())
