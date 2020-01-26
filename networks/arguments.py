@@ -64,7 +64,7 @@ def networks_argparse(parser):
     #  - dns-master: the DNS master of reverse resolution
     #  - dhcp: the DHCP server for the network
     #  - vlan: the VLAN id
-    update.add_argument('network', help='domain name')
+    update.add_argument('network', help='network name')
     update.add_argument('--description', help='a description of the network')
     update.add_argument('--gateway', help='the network gateway address')
     update.add_argument('--contact', help='a contact email for the network')

@@ -157,6 +157,7 @@ class SlamNetworkController:
         :param options:
         :return:
         """
+        args = {}
         if options.type is not None:
             args = {
                 'ns_type': options.type

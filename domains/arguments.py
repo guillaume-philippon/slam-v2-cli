@@ -61,6 +61,7 @@ def domains_argparse(parser):
     add.add_argument('--description', help='description of the entry')
     add.add_argument('--type', help='NS type')
     add.add_argument('--reference', help='fqdn of main entry in case of CNAME')
+    # add.add_argument('--ip-address', help='Additionnal IP address')
 
     # To remove a specific entry, we need to know which fqdn remove
     remove.add_argument('fqdn', help='Full Qualified Domain Name')

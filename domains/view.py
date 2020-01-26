@@ -47,11 +47,7 @@ class SlamDomainView:
             print('    contact: {}'.format(domain['contact']))
             print('    records:')
             for entry in domain['entries']:
-                if entry['type'] == 'A':
-                    print('        - {}/{} {}'.format(entry['name'], entry['type'],
-                                                      ", ".join([str(x['ip'])
-                                                                 for x in entry['addresses']])))
-                elif entry['type'] == 'PTR':
+                if entry['type'] == 'A' or entry['type'] == 'PTR':
                     print('        - {}/{} {}'.format(entry['name'], entry['type'],
                                                       ", ".join([str(x['ip'])
                                                                  for x in entry['addresses']])))

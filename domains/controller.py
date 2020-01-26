@@ -89,7 +89,6 @@ class SlamDomainController:
         ns = fqdn[0]
         domain = fqdn[1]
         entry = dict()
-        args = dict()
         if options.reference is not None:
             alias = options.reference.split('.', 1)
             alias_ns = alias[0]

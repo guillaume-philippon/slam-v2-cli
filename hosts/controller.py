@@ -51,13 +51,9 @@ class SlamHostController:
         :param options: argument pass through CLI
         :return:
         """
-        ns = None
-        domain = None
         modification = {}
         if options.fqdn is not None:
             fqdn = options.fqdn.split('.', 1)
-            ns = fqdn[0]
-            domain = fqdn[1]
         if options.hardware is not None:
             modification['interface'] = options.hardware
         if options.network is not None:

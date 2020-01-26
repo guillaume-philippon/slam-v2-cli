@@ -36,7 +36,6 @@ def hosts_argparse(parser):
                         help='MAC address of the hardware interface')
     create.add_argument('--no-ip', action='store_true', help='do not generate a IP from network')
     networks = create.add_mutually_exclusive_group()
-    # networks_options = networks.add_argument_group('g1')
     networks.add_argument('--network', help='network where the interface will be bind')
     networks.add_argument('--ip-address', help='force a specific IP address')
 
@@ -45,10 +44,11 @@ def hosts_argparse(parser):
     update.add_argument('fqdn', help='Full Qualified Domain Name of the machine')
     update.add_argument('--interface', dest='hardware',
                         help='MAC address of the hardware interface')
-    # update.add_argument('--dhcp',  help='Swap dhcp flag to false')
     dhcp = update.add_mutually_exclusive_group()
-    dhcp.add_argument('--dhcp', dest='dhcp', action='store_true', help='Enable DHCP configuration')
-    dhcp.add_argument('--no-dhcp', dest='dhcp', action='store_false', help='Disable DHCP configuration')
+    dhcp.add_argument('--dhcp', dest='dhcp', action='store_true',
+                      help='Enable DHCP configuration', default=None)
+    dhcp.add_argument('--no-dhcp', dest='dhcp', action='store_false',
+                      help='Disable DHCP configuration', default=None)
     networks = update.add_mutually_exclusive_group()
     networks.add_argument('--network', help='network where the interface will be bind')
     networks.add_argument('--ip-address', help='force a specific IP address')
@@ -61,15 +61,8 @@ def hosts_argparse(parser):
     #  - interface-speed: the speed of the interface
     #  - interface-type: the type of interface
     add.add_argument('host', help='host name')
-    # add.add_argument('--interface-mac-address', help='Interface address', required=True)
     add.add_argument('--ip-address', help='IP address', required=True)
     add.add_argument('--fqdn', help='The fqdn of the new IP')
-    # add.add_argument('--interface-speed', help='Interface speed')
-    # add.add_argument('--interface-type', help='Interface type')
 
     # To have detail on a specific hardware, we just need the hardware name
     show.add_argument('host', help='host you want to show')
-
-    # To remove a interface, we need to know the hardware and interface mac address
-    # remove.add_argument('hardware', help='hardware name')
-    # remove.add_argument('--interface-mac-address', help='Interface address', required=True)
