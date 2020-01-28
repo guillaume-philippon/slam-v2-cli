@@ -57,7 +57,7 @@ each plugin have a standard set of actions
 - add: add a new element in a item (like a fqdn, a IP in a network, a interface in a hardware)
 - remove: remove a element in a item
 
-some plugins have additionnal actions 
+some plugins have additional actions 
 
 - include: to include a new field in a element (like a reference for a CNAME)
 - exclude: to suppress a field in a element
