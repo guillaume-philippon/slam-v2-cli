@@ -23,6 +23,20 @@ Configuration
 After installation, you need to edit slam-env file to modify SLAM_LOCATION and SLAM_USERNAME to
 match your SLAM installation.
 
+    username@box$ cat slam-env
+    [...]
+    export SLAM_LOCATION=https://slam.example.com
+    export SLAM_USERNAME=slamadmin
+    [...]
+
+If dirname not work well on your machine, you can also define SLAM_PATH to match your slam-cli
+installation directory
+
+    username@box$ cat slam-env
+    [...]
+    export SLAM_PATH=$HOME/slam-v2-cli
+    [...] 
+
 Usage
 =====
 

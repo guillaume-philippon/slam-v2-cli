@@ -1,17 +1,21 @@
 export SLAM_LOCATION=http://127.0.0.1:8000
 export SLAM_USERNAME=slam
+export SLAM_PATH=$(dirname $0)
 
 if [[ -d .venv ]]
 then
-    source ./.venv/bin/activate
+    source $SLAM_PATH/.venv/bin/activate
 fi
 if [[ -d venv ]]
 then
-    source ./venv/bin/activate
+    source $SLAM_PATH/venv/bin/activate
 fi
 
-echo "Enter password for account ${SLAM_USERNAME}"
-read -s SLAM_PASSWORD
-export SLAM_PASSWORD
+if test -z "$SLAM_PASSWORD"
+then
+    echo "Enter password for account ${SLAM_USERNAME}"
+    read -s SLAM_PASSWORD
+    export SLAM_PASSWORD
+fi
 
-export PATH=$PATH:$(dirname $0)/
+export PATH=$PATH:$SLAM_PATH/
