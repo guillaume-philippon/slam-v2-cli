@@ -1,6 +1,12 @@
 export SLAM_LOCATION=http://127.0.0.1:8000
 export SLAM_USERNAME=slam
-export SLAM_PATH=$(dirname $0)
+
+if test -z "$BASH_SOURCE"
+then
+    export SLAM_PATH=$(dirname $0)
+else
+    export SLAM_PATH=$(dirname $BASH_SOURCE)
+fi
 
 if [[ -d .venv ]]
 then
