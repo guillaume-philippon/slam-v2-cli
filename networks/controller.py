@@ -142,12 +142,13 @@ class SlamNetworkController:
         :return:
         """
         feature_uri = '{}'.format(options.address)
-        result = self.api.list('networks', options.network, field=feature_uri)
+        result = self.api.get('networks', options.network, field=feature_uri)
         try:
-            print('address : {}'.format(result['address']))
-            print(' entries:')
-            for entry in result['entries']:
-                print('        - {}.{} ({})'.format(entry['ns'], entry['domain'], entry['type']))
+            print('address : {}'.format(result['ip']))
+            print(' records:')
+            for record in result['ns_entries']:
+                print('        - {}.{} ({})'.format(record['name'], record['domain']['name'],
+                                                    record['type']))
         except KeyError:
             print(result)
 
