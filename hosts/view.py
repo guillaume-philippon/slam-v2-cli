@@ -43,10 +43,12 @@ class SlamHostView:
             print('creation date: {}'.format(host['creation_date']))
             try:
                 print('     hardware:')
-                print('           - name: {}'.format(host['hardware']['name']))
-                print('             mac: {}'.format(host['hardware']['interface']))
+                print('           - name: {}'.format(host['interface']['hardware']['name']))
+                print('             mac: {}'.format(host['interface']['mac_address']))
             except KeyError:
-                pass
+                print('-- debug information --')
+                print(host)
+                print('-- debug information --')
             print('      network: ({})'.format(host['network']['name']))
             try:
                 if host['addresses'] is not None:
