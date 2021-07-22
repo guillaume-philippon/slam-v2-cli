@@ -101,4 +101,42 @@ Change information
 Add a host
 ----------
     slam hosts create box.example.com --network my-network --interface 00:11:22:33:44:55
+
+Add a IP on a host
+------------------
+    slam hosts add --ip-address 192.168.0.2 box.example.com
+
+Modify a IP on host
+-------------------
+You can't modify or rename a IP address, but you can add a IP on a host dans release the old IP
+address
+
+    slam hosts show box.example.com # to display the host config
+    https://slam.example.com/hosts/box.example.com
+         name: box.example.com
+         dhcp: True
+    creation date: 2021-01-28T13:57:24.006Z
+         hardware:
+          network: (my-network)
+                - 192.168.0.1
+    slam hosts add --ip-address 192.168.0.2 box.example.com
+    slam hosts show box.example.com # to display the host config
+    https://slam.example.com/hosts/box.example.com
+         name: box.example.com
+         dhcp: True
+    creation date: 2021-01-28T13:57:24.006Z
+         hardware:
+          network: (my-network)
+                - 192.168.0.1
+                - 192.168.0.2
+    slam networks remove --ip-address 192.168.0.1 my-network
+    slam hosts show box.example.com # to display the host config
+    https://slam.example.com/hosts/box.example.com
+         name: box.example.com
+         dhcp: True
+    creation date: 2021-01-28T13:57:24.006Z
+         hardware:
+          network: (my-network)
+                - 192.168.0.2
+
     
