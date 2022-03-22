@@ -140,3 +140,17 @@ address
                 - 192.168.0.2
 
     
+Using SLAM CLI on Windows with Git Bash
+---------------------------------------
+On Windows, when using Git Bash (on Bash shell as provided by MinGW), there is a know issue with
+the password prompt, because the `pty` emulation is incomplete. There are several possible
+workarounds:
+
+- Run SLAM CLI in a Windows shell or PowerShell
+- Use `winpty` (installed as part of Git Bash) to execute it with a command like:
+
+  ```bash
+  winpty python slam ...
+  ```
+- Define the variable `SLAM_PASSOWRD`
+
