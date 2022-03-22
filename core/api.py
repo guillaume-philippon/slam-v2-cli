@@ -9,6 +9,7 @@ import os
 import json
 import requests
 from distutils.util import strtobool
+from getpass import getpass
 
 
 class SlamAPIController:
@@ -37,7 +38,7 @@ class SlamAPIController:
             self.username = input("slam username: ")
             os.putenv('SLAM_USERNAME', self.username)
         if self.password is None:  # If passowrd is not defined, we ask for it.
-            self.password = input("slam password: ")
+            self.password = getpass(prompt="slam password: ")
             os.putenv('SLAM_PASSWORD', self.password)
 
         # For security reason, we use CSRF on REST API. To get it, we have a specific path
