@@ -3,7 +3,7 @@
 Installation
 ============
 
-slam-v2-cli has been tested w/ python 3.6 and mainly need requests module from python.
+slam-v2-cli has been tested with python 3.6+ and mainly needs requests Python module.
 
     username@box$ git clone https://github.com/guillaume-philippon/slam-v2-cli.git
     username@box$ cd slam-v2-cli
@@ -20,7 +20,7 @@ with (.venv) to indicate that your in a python virtualenv
 Configuration
 =============
 
-After installation, you need to edit slam-env file to modify SLAM_LOCATION and SLAM_USERNAME to
+After installation, you need to edit the slam-env file to modify SLAM_LOCATION and SLAM_USERNAME to
 match your SLAM installation.
 
     username@box$ cat slam-env
@@ -29,7 +29,7 @@ match your SLAM installation.
     export SLAM_USERNAME=slamadmin
     [...]
 
-If dirname not work well on your machine, you can also define SLAM_PATH to match your slam-cli
+If dirname command is not available on your machine, you can also define SLAM_PATH to match your slam-cli
 installation directory
 
     username@box$ cat slam-env
@@ -40,7 +40,7 @@ installation directory
 Usage
 =====
 
-To use SLAM, you just need to load your env w/ command
+To use SLAM, you just need to load your env with command
 
     username@box$ source slam-env
     (.venv) username@box$ slam -h
@@ -56,14 +56,14 @@ To use SLAM, you just need to load your env w/ command
 Quick start
 ===========
 
-SLAM use composed by plugin, each one provide access to some configuration part
+SLAM is composed of several plugins, each one managing part of the SLAM information:
 
 - domains: access to DNS domain (like example.com)
 - networks: access to IP network (like 192.168.0.0/24)
 - hardware: access to hardware inventory (physical machine)
-- hosts: a host is a combo of domains / networks and hardware.
+- hosts: a host is a combination of domains / networks and hardware.
 
-each plugin have a standard set of actions
+Each plugin have a standard set of actions:
 
 - create: to create a new item (domain, network, hardware, host)
 - delete: to delete a item
@@ -71,13 +71,13 @@ each plugin have a standard set of actions
 - add: add a new element in a item (like a fqdn, a IP in a network, a interface in a hardware)
 - remove: remove a element in a item
 
-some plugins have additional actions 
+some plugins have additional actions:
 
 - include: to include a new field in a element (like a reference for a CNAME)
 - exclude: to suppress a field in a element
 
-Some basic example
-==================
+Some basic examples
+===================
 
 Help
 ----
@@ -108,7 +108,7 @@ Add a IP on a host
 
 Modify a IP on host
 -------------------
-You can't modify or rename a IP address, but you can add a IP on a host dans release the old IP
+You can't modify or rename an IP address, but you can add a IP on a host and remove the old IP
 address
 
     slam hosts show box.example.com # to display the host config
